@@ -173,10 +173,12 @@
     <Content Include="Views\Espiral\IndexEspiral.cshtml" />
     <Content Include="Views\Espiral\_CargaArchivoEspiral.cshtml" />
     <Content Include="Views\Espiral\_OperarEspiral.cshtml" />
+    <Content Include="Views\Cesar\IndexCesar.cshtml" />
+    <Content Include="Views\Cesar\_CargaArchivoCesar.cshtml" />
+    <Content Include="Views\Cesar\_OperarEspiral.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Cesar\" />
     <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>

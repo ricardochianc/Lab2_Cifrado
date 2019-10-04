@@ -1,0 +1,18 @@
+﻿@using Lab2_Cifrado.Instancia
+@model Lab2_Cifrado.Models.Serie1.Cesar
+
+@{
+    ViewBag.Title = "Cesar |";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<h2>Cifrado César</h2>
+@if (Data.Instancia.ArchivoCargado == false)
+{
+    @Html.Partial("_CargaArchivoCesar")
+}
+
+@if (Data.Instancia.ArchivoCargado)
+{
+    @Html.Partial("_OperarCesar")
+}

@@ -11,7 +11,7 @@ namespace Lab2_Cifrado.Controllers.Serie1
     public class CesarController : Controller
     {
         // GET: Cesar
-        public ActionResult IndexEspiral()
+        public ActionResult IndexCesar()
         {
             return View();
         }
@@ -58,7 +58,7 @@ namespace Lab2_Cifrado.Controllers.Serie1
             }
             catch
             {
-                return View("IndexEspiral");
+                return View("IndexCesar");
             }
         }
     }
