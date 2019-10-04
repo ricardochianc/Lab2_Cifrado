@@ -47,7 +47,7 @@ namespace Lab2_Cifrado.Models.Serie1
             switch (Extension)
             {
                 case "txt":
-                    CifradoZigZag = new Cifrado();
+                    CifradoZigZag = new Cifrado(NombreArchivo,RutaAbsolutaArchivo,RutaAbsolutaServer,Clave);
                     break;
 
                 case "cif":
