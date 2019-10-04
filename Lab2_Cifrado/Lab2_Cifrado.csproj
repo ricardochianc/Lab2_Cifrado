@@ -175,7 +175,7 @@
     <Content Include="Views\Espiral\_OperarEspiral.cshtml" />
     <Content Include="Views\Cesar\IndexCesar.cshtml" />
     <Content Include="Views\Cesar\_CargaArchivoCesar.cshtml" />
-    <Content Include="Views\Cesar\_OperarEspiral.cshtml" />
+    <Content Include="Views\Cesar\_OperarCesar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

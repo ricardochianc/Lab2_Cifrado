@@ -26,9 +26,9 @@ namespace Lab2_Cifrado.Controllers
                 return RedirectToAction("IndexEspiral", "Espiral");
             }
 
-            if (formCollection["César"] != null)
+            if (formCollection["Cesar"] != null)
             {
-                return RedirectToAction("IndexZigZag", "ZigZag");
+                return RedirectToAction("IndexCesar", "Cesar");
             }
             return null;
         }

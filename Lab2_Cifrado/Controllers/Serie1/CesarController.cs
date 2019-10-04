@@ -30,8 +30,8 @@ namespace Lab2_Cifrado.Controllers.Serie1
 
                 var nombre = postedFile.FileName.Split('.')[0];
 
-                Data.Instancia.EspiralCif.AsignarRutas(path,FilePath,nombre);
-                Data.Instancia.EspiralCif.AsignarExtension(postedFile.FileName.Split('.')[1]);
+                Data.Instancia.CesarCif.AsignarRutas(path,FilePath,nombre);
+                Data.Instancia.CesarCif.AsignarExtension(postedFile.FileName.Split('.')[1]);
 
                 Data.Instancia.ArchivoCargado = true;
             }
