@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cifrado\Cesar\CifradoCesar.cs" />
+    <Compile Include="Cifrado\Cesar\DescifradoCesar.cs" />
     <Compile Include="Cifrado\Espiral\Cifrado.cs" />
     <Compile Include="Cifrado\Espiral\Descifrado.cs" />
     <Compile Include="Cifrado\ZigZag\Cifrado.cs" />

@@ -120,12 +120,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Serie1Controller.cs" />
+    <Compile Include="Controllers\Serie1\CesarController.cs" />
     <Compile Include="Controllers\Serie1\EspiralController.cs" />
     <Compile Include="Controllers\Serie1\ZigZagController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Instancia\Data.cs" />
+    <Compile Include="Models\Serie1\Cesar.cs" />
     <Compile Include="Models\Serie1\Espiral.cs" />
     <Compile Include="Models\Serie1\ZigZag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -174,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Cesar\" />
     <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>

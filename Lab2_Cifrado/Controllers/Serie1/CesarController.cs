@@ -8,16 +8,16 @@ using Lab2_Cifrado.Instancia;
 
 namespace Lab2_Cifrado.Controllers.Serie1
 {
-    public class EspiralController : Controller
+    public class CesarController : Controller
     {
-        // GET: Espiral
+        // GET: Cesar
         public ActionResult IndexEspiral()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult CargaArchivoEspiral(HttpPostedFileBase postedFile)
+        public ActionResult CargaArchivoCesar(HttpPostedFileBase postedFile)
         {
             var FilePath = string.Empty;
 
@@ -36,26 +36,25 @@ namespace Lab2_Cifrado.Controllers.Serie1
                 Data.Instancia.ArchivoCargado = true;
             }
 
-            return RedirectToAction("IndexEspiral");
+            return RedirectToAction("IndexCesar");
         }
         
-        // POST: Espiral/Create
+        // POST: Cesar/Create
         [HttpPost]
-        public ActionResult OperarEspiral(FormCollection collection)
+        public ActionResult OperarCesar(FormCollection collection)
         {
             try
             {
-                var clave = int.Parse(collection["Clave"]);
-                var direccion = collection["DireccionRecorrido"];
+                var clave = collection["PalabraClave"];
 
-                if (clave > 0)
+                if (clave != "")
                 {
-                    Data.Instancia.EspiralCif.Clave = clave;
+                    Data.Instancia.CesarCif.PalabraClave = clave;
                     Data.Instancia.EleccionOperacion = true;
-                    Data.Instancia.EspiralCif.Operar();
+                    Data.Instancia.CesarCif.Operar();
                 }
                 
-                return RedirectToAction("IndexEspiral");
+                return RedirectToAction("IndexCesar");
             }
             catch
             {
