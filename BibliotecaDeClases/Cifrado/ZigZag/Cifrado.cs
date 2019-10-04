@@ -159,7 +159,7 @@ namespace BibliotecaDeClases.Cifrado.ZigZag
 
                         ContadorFila = 0;
                         elementos = 0;
-                    }
+                        }
                 }
             }
         }
@@ -175,9 +175,15 @@ namespace BibliotecaDeClases.Cifrado.ZigZag
             columnas = elementosOla * Olas;
         }
 
-        private void Escribir()
+        private void Escribir(string path)
         {
-
+            using (var file = new FileStream(RutaAbsolutaServer + NombreArchivo + ".cif", FileMode.Append))
+            {
+                using (var writer = new BinaryWriter(file, Encoding.UTF8))
+                {
+                    
+                }
+            }
         }
     }
 }
