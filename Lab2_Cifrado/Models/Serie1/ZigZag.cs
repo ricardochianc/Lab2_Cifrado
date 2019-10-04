@@ -16,6 +16,7 @@ namespace Lab2_Cifrado.Models.Serie1
         private string NombreArchivo { get; set; }
         private string RutaAbsolutaArchivo { get; set; }
         private string RutaAbsolutaServer { get; set; }
+        private string Extension { get; set; }
 
         public ZigZag()
         {
@@ -24,5 +25,30 @@ namespace Lab2_Cifrado.Models.Serie1
             RutaAbsolutaArchivo = string.Empty;;
             RutaAbsolutaServer = string.Empty;
         }
+
+        public void AsignarExtension(string ext)
+        {
+            Extension = ext;
+        }
+
+        public void AsignarRutas(string rutaAbsServer, string rutaAbsArchivo, string nombreArchivo)
+        {
+            NombreArchivo = nombreArchivo;
+            RutaAbsolutaArchivo = rutaAbsArchivo;
+            RutaAbsolutaServer = rutaAbsServer;
+        }
+
+        public void Operar()
+        {
+            switch (Extension)
+            {
+                case "txt":
+                    break;
+
+                case "cif":
+                    break;
+            }
+        }
+
     }
 }

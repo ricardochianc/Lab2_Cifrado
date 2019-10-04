@@ -21,7 +21,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Serie 1", "Index", "ZigZag")</li>
+                    <li>@Html.ActionLink("Serie 1", "SelecccionCifrado", "Serie1")</li>
                     <li>@Html.ActionLink("Serie 2", "PaginaPrincipalLab", "Home")</li>
                     <li>@Html.ActionLink("Serie 3", "PaginaPrincipalLab", "Home")</li>
                 </ul>
@@ -29,16 +29,18 @@
         </div>
     </div>
     <div class="container body-content">
+        <br />
+        <br />
         @RenderBody()
-        
+
         <div>
             <footer class="col-md-10">
-                <hr/>
+                <hr />
                 <p>&copy; @DateTime.Now.Year Laboratorio 2 - Cifrado (Ricardo Chian | Pablo García) </p>
             </footer>
         </div>
     </div>
-    
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

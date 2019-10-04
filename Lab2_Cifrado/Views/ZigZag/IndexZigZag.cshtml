@@ -1,0 +1,23 @@
+﻿@using Lab2_Cifrado.Instancia
+@model Lab2_Cifrado.Models.Serie1.ZigZag
+
+@{
+    ViewBag.Title = "Zig-Zag |";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<h2>Cifrado Zig-Zag</h2>
+
+@if (Data.Instancia.ArchivoCargado == false)
+{
+    @Html.Partial("_CargaArchivoZigZag")
+}
+
+@if (Data.Instancia.ArchivoCargado)
+{
+    @Html.Partial("_OperarZigZag")
+}
+
+
+
+@*Llamar a las vistas parciales de carga de archivo y todo eso jajaja*@

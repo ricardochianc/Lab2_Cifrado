@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Lab2_Cifrado.Instancia;
 
 namespace Lab2_Cifrado.Controllers
 {
@@ -10,6 +12,20 @@ namespace Lab2_Cifrado.Controllers
     {
         public ActionResult PaginaPrincipalLab()
         {
+
+            if (Data.Instancia.primeraVez)
+            {
+                var path = Server.MapPath("~/MisCifrados/");
+
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                Data.Instancia.RutaAbsolutaServer = path;
+                Data.Instancia.primeraVez = false;
+            }
+
             return View();
         }
 
@@ -18,7 +34,7 @@ namespace Lab2_Cifrado.Controllers
         {
             if (formCollection["Serie1"] != null)
             {
-                return RedirectToAction("Index", "ZigZag");
+                return RedirectToAction("SelecccionCifrado", "Serie1");
             }
 
             if (formCollection["Serie2"] != null)

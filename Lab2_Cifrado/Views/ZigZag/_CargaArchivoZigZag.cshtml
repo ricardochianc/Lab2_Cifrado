@@ -1,0 +1,16 @@
+﻿@model Lab2_Cifrado.Models.Serie1.ZigZag
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">3. Carga de archivo</h3>
+    </div>
+    <div class="panel-body">
+
+        @using (Html.BeginForm("CargaArchivoZigZag", "ZigZag", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" class="form-control-file" name="postedFile" aria-describedby="fileHelp">
+            <br />
+            <button type="submit" class="btn btn-info">Cargar</button>
+        }
+    </div>
+</div>
