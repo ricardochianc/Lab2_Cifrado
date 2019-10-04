@@ -1,0 +1,19 @@
+﻿@using Lab2_Cifrado.Instancia
+@model Lab2_Cifrado.Models.Serie1.Espiral
+
+@{
+    ViewBag.Title = "Espiral |";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<h2>Cifrado Espiral</h2>
+@if (Data.Instancia.ArchivoCargado == false)
+{
+    @Html.Partial("_CargaArchivoEspiral")
+}
+
+@if (Data.Instancia.ArchivoCargado)
+{
+    @Html.Partial("_OperarEspiral")
+}
+

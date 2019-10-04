@@ -30,5 +30,6 @@ namespace Lab2_Cifrado.Instancia
         public string RutaAbsolutaServer { get; set; }
 
         public ZigZag ZigZagCif = new ZigZag();
+        public Espiral EspiralCif = new Espiral();
     }
 }
