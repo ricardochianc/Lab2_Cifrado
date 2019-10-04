@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace Lab2_Cifrado.Models.Serie1
+{
+    public class ZigZag
+    {
+        [Display(Name = "Clave/Niveles")]
+        [Range(0,Int32.MaxValue,ErrorMessage = "El valor {0} no es válido")]
+        [Required(ErrorMessage = "Debe de ingresar una clave para este cifrado")]
+        public int Clave { get; set; }
+
+        private string NombreArchivo { get; set; }
+        private string RutaAbsolutaArchivo { get; set; }
+        private string RutaAbsolutaServer { get; set; }
+
+        public ZigZag()
+        {
+            Clave = 0;
+            NombreArchivo = string.Empty;
+            RutaAbsolutaArchivo = string.Empty;;
+            RutaAbsolutaServer = string.Empty;
+        }
+    }
+}
