@@ -88,7 +88,7 @@ namespace Lab2_Cifrado.Controllers.Serie1
             return null;
         }
         
-        public FileResult DescargarResultadoZigZag()
+        public FileResult DescargarResultadoCesar()
         {
             var extensionNueva = string.Empty;
 
