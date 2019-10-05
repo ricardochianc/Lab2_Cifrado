@@ -213,6 +213,7 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                     }
                 }
             }
+            File.Delete(RutaAbsolutaArchivo);
         }
 
         public void EscribirBuffer()

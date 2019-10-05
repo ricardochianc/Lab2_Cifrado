@@ -269,7 +269,8 @@ namespace BibliotecaDeClases.Cifrado.Espiral
 
                     } 
                 } 
-            }           
+            }
+            File.Delete(RutaAbsolutaArchivo);
         }
         
         //PARA GUARDAR EL ARCHIVO rutaServer + nombreArchivo + ".txt"

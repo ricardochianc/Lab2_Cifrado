@@ -63,5 +63,38 @@ namespace Lab2_Cifrado.Controllers.Serie1
                 return View("IndexEspiral");
             }
         }
+
+        //NUEVO PARA DESCARGAR ARCHIVO
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Resultado(FormCollection collection)
+        {
+            try
+            {
+                if (collection["DescargarEspiral"] != null)
+                {
+                    return RedirectToAction("DescargarResultadoEspiral");
+                }
+
+                if (collection["HomeSerie1"] != null)
+                {
+                    Data.Instancia.EspiralCif.Reset();
+                    return RedirectToAction("PaginaPrincipalLab", "Home");
+                }
+            }
+            catch(Exception error)
+            {
+                Data.Instancia.EspiralCif.Reset();
+                return View("IndexEspiral");
+            }
+
+            return null;
+        }
+        
+        public FileResult DescargarResultadoEspiral()
+        {
+            var extensionNueva = string.Empty;
+
+            return File(Data.Instancia.EspiralCif.ArchivoResultante(ref extensionNueva), "*" + extensionNueva,Data.Instancia.EspiralCif.NombreArchivo + extensionNueva);
+        }
     }
 }

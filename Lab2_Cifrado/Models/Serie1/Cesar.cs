@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.IO;
 using System.ComponentModel.DataAnnotations;
 using BibliotecaDeClases.Cifrado.Cesar;
+using Lab2_Cifrado.Instancia;
 
 namespace Lab2_Cifrado.Models.Serie1
 {
@@ -14,7 +16,7 @@ namespace Lab2_Cifrado.Models.Serie1
         [Required(ErrorMessage = "Debe de ingresar una clave para esta operacion")]
         public string PalabraClave { get; set; }
 
-        private string NombreArchivo { get; set; }
+        public string NombreArchivo { get; set; }
         private string RutaAbsolutaArchivo { get; set; }
         private string RutaAbsolutaServer { get; set; }
         private string Extension { get; set; }
@@ -70,6 +72,46 @@ namespace Lab2_Cifrado.Models.Serie1
                     }
                     break;
             }
+        }
+
+        //BUSCA DENTRO DE LA CARPETA DE "MisCifrados" DEL SERVER EL ARCHIVO PARA DÁRSELO AL USUARIO
+        public FileStream ArchivoResultante(ref string extension)
+        {
+            switch (Extension)
+            {
+                case "txt":
+                    var path = RutaAbsolutaServer + NombreArchivo + ".cif";
+                    var file = new FileStream(path,FileMode.Open,FileAccess.Read);
+                    extension = ".cif";
+                    return file;
+
+                case "cif":
+                    var path2 = RutaAbsolutaServer + NombreArchivo + ".txt";
+                    var file2 = new FileStream(path2, FileMode.Open, FileAccess.Read);
+                    extension = ".txt";
+                    return file2;
+            }
+            return null;
+        }
+
+
+        //Reset, para cuando se le da home y que vuelva instanciar
+        public void Reset()
+        {
+            switch (Extension)
+            {
+                case "cif":
+                    File.Delete(RutaAbsolutaServer + NombreArchivo + ".txt");
+                    CesarDescif = new DescifradoCesar("","","","");
+                    break;
+
+                case "txt":
+                    File.Delete(RutaAbsolutaServer + NombreArchivo + ".cif");
+                    CesarCif = new CifradoCesar("", "", "", "");
+                    break;
+            }
+            Data.Instancia.ArchivoCargado = false;
+            Data.Instancia.EleccionOperacion = false;
         }
     }
 }

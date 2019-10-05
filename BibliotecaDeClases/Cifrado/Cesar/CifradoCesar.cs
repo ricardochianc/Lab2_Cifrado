@@ -115,6 +115,7 @@ namespace BibliotecaDeClases.Cifrado.Cesar
                     }
                 }
             }
+            File.Delete(RutaAbsolutaArchivo);
         }
 
         private void EscribirBuffer()

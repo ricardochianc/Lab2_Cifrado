@@ -177,6 +177,8 @@
     <Content Include="Views\Cesar\_CargaArchivoCesar.cshtml" />
     <Content Include="Views\Cesar\_OperarCesar.cshtml" />
     <Content Include="Views\ZigZag\_ResultadoZZ.cshtml" />
+    <Content Include="Views\Espiral\_ResultadoEspiral.cshtml" />
+    <Content Include="Views\Cesar\_ResultadoCesar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
