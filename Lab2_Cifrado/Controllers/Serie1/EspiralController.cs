@@ -51,6 +51,7 @@ namespace Lab2_Cifrado.Controllers.Serie1
                 if (clave > 0)
                 {
                     Data.Instancia.EspiralCif.Clave = clave;
+                    Data.Instancia.EspiralCif.DireccionRecorrido = direccion;
                     Data.Instancia.EleccionOperacion = true;
                     Data.Instancia.EspiralCif.Operar();
                 }
