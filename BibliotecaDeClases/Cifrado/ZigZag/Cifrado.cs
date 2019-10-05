@@ -131,7 +131,7 @@ namespace BibliotecaDeClases.Cifrado.ZigZag
                                 {
                                     if (ContadorFila < Filas)
                                     {
-                                        if (Estructura[ContadorFila,i] == "")
+                                        if (Estructura[ContadorFila, i] == "")
                                         {
                                             Estructura[ContadorFila, i] = Relleno.ToString();
                                             ContadorFila++;
@@ -159,7 +159,9 @@ namespace BibliotecaDeClases.Cifrado.ZigZag
 
                         ContadorFila = 0;
                         elementos = 0;
-                        }
+
+                        Escribir(Columnas);
+                    }
                 }
             }
         }
@@ -175,13 +177,22 @@ namespace BibliotecaDeClases.Cifrado.ZigZag
             columnas = elementosOla * Olas;
         }
 
-        private void Escribir(string path)
+        private void Escribir(int columnas)
         {
             using (var file = new FileStream(RutaAbsolutaServer + NombreArchivo + ".cif", FileMode.Append))
             {
-                using (var writer = new BinaryWriter(file, Encoding.UTF8))
+                using (var writer = new StreamWriter(file, Encoding.UTF8))
                 {
-                    
+                    for (int i = 0; i < Filas; i++)
+                    {
+                        for (int j = 0; j < columnas; j++)
+                        {
+                            if (Estructura[i, j] != "")
+                            {
+                                writer.Write(Estructura[i, j]);
+                            }
+                        }
+                    }
                 }
             }
         }

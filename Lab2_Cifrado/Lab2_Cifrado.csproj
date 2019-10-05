@@ -176,10 +176,10 @@
     <Content Include="Views\Cesar\IndexCesar.cshtml" />
     <Content Include="Views\Cesar\_CargaArchivoCesar.cshtml" />
     <Content Include="Views\Cesar\_OperarCesar.cshtml" />
+    <Content Include="Views\ZigZag\_ResultadoZZ.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

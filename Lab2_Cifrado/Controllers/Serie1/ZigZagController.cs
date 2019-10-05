@@ -51,7 +51,7 @@ namespace Lab2_Cifrado.Controllers.Serie1
                 {
                     Data.Instancia.ZigZagCif.Clave = clave;
                     Data.Instancia.EleccionOperacion = true;
-                    //Mandar a llamar lo de hacer Zig Zag
+                    Data.Instancia.ZigZagCif.Operar();
                 }
                 
                 return RedirectToAction("IndexZigZag");
@@ -60,6 +60,38 @@ namespace Lab2_Cifrado.Controllers.Serie1
             {
                 return View("IndexZigZag");
             }
+        }
+
+        //NUEVO PARA DESCARGAR ARCHIVO
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Resultado(FormCollection collection)
+        {
+            try
+            {
+                if (collection["DescargarZZ"] != null)
+                {
+                    return RedirectToAction("DescargarResultadoZigZag");
+                }
+
+                if (collection["HomeSerie1"] != null)
+                {
+                    Data.Instancia.ZigZagCif.Reset();
+                    return RedirectToAction("PaginaPrincipalLab", "Home");
+                }
+            }
+            catch
+            {
+                return View("IndexZigZag");
+            }
+
+            return null;
+        }
+        
+        public FileResult DescargarResultadoZigZag()
+        {
+            var extensionNueva = string.Empty;
+
+            return File(Data.Instancia.ZigZagCif.ArchivoResultante(ref extensionNueva), "*" + extensionNueva,Data.Instancia.ZigZagCif.NombreArchivo + extensionNueva);
         }
     }
 }

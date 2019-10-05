@@ -18,6 +18,7 @@
     @Html.Partial("_OperarZigZag")
 }
 
-
-
-@*Llamar a las vistas parciales de carga de archivo y todo eso jajaja*@
+@if (Data.Instancia.ArchivoCargado && Data.Instancia.EleccionOperacion)
+{
+    @Html.Partial("_ResultadoZZ")
+}
