@@ -16,3 +16,8 @@
 {
     @Html.Partial("_OperarCesar")
 }
+
+@if (Data.Instancia.ArchivoCargado && Data.Instancia.EleccionOperacion)
+{
+    @Html.Partial("_ResultadoCesar")
+}

@@ -17,3 +17,7 @@
     @Html.Partial("_OperarEspiral")
 }
 
+@if (Data.Instancia.ArchivoCargado && Data.Instancia.EleccionOperacion)
+{
+    @Html.Partial("_ResultadoEspiral")
+}
