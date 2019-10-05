@@ -45,7 +45,7 @@
     <Compile Include="Cifrado\Cesar\DescifradoCesar.cs" />
     <Compile Include="Cifrado\Espiral\Cifrado.cs" />
     <Compile Include="Cifrado\Espiral\Descifrado.cs" />
-    <Compile Include="Cifrado\ZigZag\Cifrado.cs" />
+    <Compile Include="Cifrado\ZigZag\ZigZagCifrado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

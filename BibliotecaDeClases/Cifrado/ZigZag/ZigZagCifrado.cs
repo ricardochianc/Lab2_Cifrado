@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BibliotecaDeClases.Cifrado.ZigZag
 {
-    public class Cifrado
+    public class ZigZagCifrado
     {
         private string NombreArchivo { get; set; }
         private string RutaAbsolutaArchivo { get; set; }
@@ -24,7 +24,7 @@ namespace BibliotecaDeClases.Cifrado.ZigZag
         public string[,] Estructura { get; set; }
 
 
-        public Cifrado(string nombreArchivo, string RutaAbsArchivo, string RutaAbsServer, int clave)
+        public ZigZagCifrado(string nombreArchivo, string RutaAbsArchivo, string RutaAbsServer, int clave)
         {
             NombreArchivo = nombreArchivo;
             RutaAbsolutaArchivo = RutaAbsArchivo;
@@ -63,25 +63,26 @@ namespace BibliotecaDeClases.Cifrado.ZigZag
 
                         var elementos = 0;
                         var ContadorFila = 0;
+                        var ContadorColumna = 0;
                         var OlasAux = 0;
 
                         foreach (var caracter in caracteresArray)
                         {
                             if (caracter != '\r')
                             {
-                                for (int i = 0; i < Columnas; i++)
-                                {
+                                //for (int i = 0; i < Columnas; i++)
+                                //{
                                     if (elementos != CantElementosOlas)
                                     {
                                         if (ContadorFila < Filas)
                                         {
                                             if (caracter == '\n')
                                             {
-                                                Estructura[ContadorFila, i] = "/n";
+                                                Estructura[ContadorFila, ContadorColumna] = "/n";
                                             }
                                             else
                                             {
-                                                Estructura[ContadorFila, i] = caracter.ToString();
+                                                Estructura[ContadorFila, ContadorColumna] = caracter.ToString();
                                             }
 
                                             ContadorFila++;
@@ -90,18 +91,19 @@ namespace BibliotecaDeClases.Cifrado.ZigZag
                                         else
                                         {
                                             var diferencia = ContadorFila + 1;
-                                            diferencia = -Filas;
+                                            diferencia -= Filas;
 
                                             if (caracter == '\n')
                                             {
-                                                Estructura[(ContadorFila - (diferencia * 2)), i] = "/n";
+                                                Estructura[(ContadorFila - (diferencia * 2)), ContadorColumna] = "/n";
                                             }
                                             else
                                             {
-                                                Estructura[(ContadorFila - (diferencia * 2)), i] = caracter.ToString();
+                                                Estructura[(ContadorFila - (diferencia * 2)), ContadorColumna] = caracter.ToString();
                                             }
 
                                             elementos++;
+                                            ContadorFila++;
 
                                             if (elementos == CantElementosOlas)
                                             {
@@ -110,6 +112,8 @@ namespace BibliotecaDeClases.Cifrado.ZigZag
                                                 OlasAux++;
                                             }
                                         }
+
+                                        ContadorColumna++;
                                     }
                                     else
                                     {
@@ -117,7 +121,7 @@ namespace BibliotecaDeClases.Cifrado.ZigZag
                                         OlasAux++;
                                         ContadorFila = 0;
                                     }
-                                }
+                                //}
                             }
                         }
 
@@ -125,27 +129,27 @@ namespace BibliotecaDeClases.Cifrado.ZigZag
                         {
                             ContadorFila = 0;
 
-                            for (int i = (((Olas - 1) * CantElementosOlas) - 1); i < Columnas; i++)
+                            for (int i = (((Olas - 1) * CantElementosOlas)); i < Columnas; i++)
                             {
                                 if (elementos != CantElementosOlas)
                                 {
                                     if (ContadorFila < Filas)
                                     {
-                                        if (Estructura[ContadorFila, i] == "")
+                                        if (Estructura[ContadorFila, i] == null)
                                         {
                                             Estructura[ContadorFila, i] = Relleno.ToString();
-                                            ContadorFila++;
                                             elementos++;
                                         }
                                     }
                                     else
                                     {
-                                        var diferencia = ContadorFila + 1;
-                                        diferencia = -Filas;
+                                        var diferencia = ContadorFila+1;
+                                        diferencia -= Filas;
 
-                                        if (Estructura[(ContadorFila - (diferencia * 2)), i] == "")
+                                        if (Estructura[(ContadorFila - (diferencia * 2)), i] == null)
                                         {
                                             Estructura[(ContadorFila - (diferencia * 2)), i] = Relleno.ToString();
+                                            elementos++;
                                         }
                                     }
                                 }
@@ -153,7 +157,7 @@ namespace BibliotecaDeClases.Cifrado.ZigZag
                                 {
                                     i = Columnas;
                                 }
-
+                                ContadorFila++;
                             }
                         }
 
@@ -164,12 +168,13 @@ namespace BibliotecaDeClases.Cifrado.ZigZag
                     }
                 }
             }
+            File.Delete(RutaAbsolutaArchivo);
         }
 
         private void CalcularColumnas(ref int columnas, ref int elementosOla, ref int Olas, double longitud)
         {
             var _elementosOla = (Filas * 2) - 2;
-            var olas = (Math.Ceiling(longitud / elementosOla)).ToString("####");
+            var olas = (Math.Ceiling(longitud / _elementosOla)).ToString("####");
 
             elementosOla = int.Parse(_elementosOla.ToString("####"));
             Olas = int.Parse(olas);
@@ -187,7 +192,7 @@ namespace BibliotecaDeClases.Cifrado.ZigZag
                     {
                         for (int j = 0; j < columnas; j++)
                         {
-                            if (Estructura[i, j] != "")
+                            if (Estructura[i, j] != null)
                             {
                                 writer.Write(Estructura[i, j]);
                             }

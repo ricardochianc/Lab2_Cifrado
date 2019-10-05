@@ -21,7 +21,7 @@ namespace Lab2_Cifrado.Models.Serie1
         private string RutaAbsolutaServer { get; set; }
         private string Extension { get; set; }
 
-        private Cifrado CifradoZigZag { get; set; }
+        private ZigZagCifrado CifradoZigZag { get; set; }
         //Poner propiedad de descifrado
 
         public ZigZag()
@@ -49,7 +49,7 @@ namespace Lab2_Cifrado.Models.Serie1
             switch (Extension)
             {
                 case "txt":
-                    CifradoZigZag = new Cifrado(NombreArchivo,RutaAbsolutaArchivo,RutaAbsolutaServer,Clave);
+                    CifradoZigZag = new ZigZagCifrado(NombreArchivo,RutaAbsolutaArchivo,RutaAbsolutaServer,Clave);
                     CifradoZigZag.Cifrar();
                     break;
 
@@ -85,13 +85,13 @@ namespace Lab2_Cifrado.Models.Serie1
             switch (Extension)
             {
                 case "cif":
-                    File.Delete(RutaAbsolutaServer + NombreArchivo + ".cif");
-                    CifradoZigZag = new Cifrado("","","",0);
+                    File.Delete(RutaAbsolutaServer + NombreArchivo + ".txt");
+                    //DescifradoZigZag = new Descifrado();
                     break;
 
                 case "txt":
-                    File.Delete(RutaAbsolutaServer + NombreArchivo + ".txt");
-                    //DescifradoZigZag = new Descifrado();
+                    File.Delete(RutaAbsolutaServer + NombreArchivo + ".cif");
+                    CifradoZigZag = new ZigZagCifrado("", "", "", 0);
                     break;
             }
             Data.Instancia.ArchivoCargado = false;
