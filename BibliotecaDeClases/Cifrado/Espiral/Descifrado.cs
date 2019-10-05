@@ -34,6 +34,17 @@ namespace BibliotecaDeClases.Cifrado.Espiral
         
         public void Descifrar()
         {
+            var pos = 0;
+            var sigValorColumna = 0;
+            var sigValorFila = 0;
+            var xarab = 0;
+            var xabar = 0;
+            var yderiz = 0;
+            var yizder = 0;
+
+            var carsEnMatriz = 0;
+            var area = 0;
+
             using(var file = new FileStream(RutaAbsolutaArchivo, FileMode.Open))
             {
                 using(var reader = new BinaryReader(file, Encoding.UTF8))
@@ -46,17 +57,12 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                         bufferLectura = reader.ReadChars(largoBuffer);
                         matriz = new char[CalculoColumnas(Clave, largoBuffer), Clave];
                         
-                        posBufferEscritura = 0;
-                        var pos = 0;
-                        var sigValorColumna = matriz.GetLength(0);
-                        var sigValorFila = matriz.GetLength(1);
-                        var xarab = 0;
-                        var xabar = 0;
-                        var yderiz = 0;
-                        var yizder = 0;
+                        area = matriz.GetLength(0) * matriz.GetLength(1);
 
-                        var carsEnMatriz = 0;
-                        var area = matriz.GetLength(0) * matriz.GetLength(1);
+                        sigValorColumna = matriz.GetLength(0);
+                        sigValorFila = matriz.GetLength(1);
+                        pos = 0;
+                        posBufferEscritura = 0;                        
 
                         switch (DireccionRecorrido)
                         {
@@ -84,13 +90,15 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                                 }
                                                 else
                                                 {
-                                                    pos++;
+                                                    matriz[xarab,j] = bufferLectura[pos + 1];
+                                                    pos += 2;
+                                                    carsEnMatriz++;
                                                 }                                                
                                             }                                
                                         }
 
                                         xarab++;
-                                    }                    
+                                    }
 
                                     //DE IZQUIERDA A DERECHA
                                     if(pos < bufferLectura.Length)
@@ -168,7 +176,9 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                                 }
                                                 else
                                                 {
-                                                    pos++;
+                                                    matriz[i,yizder] = bufferLectura[pos + 1];
+                                                    pos += 2;
+                                                    carsEnMatriz++;
                                                 }                                                
                                             }                                
                                         }
@@ -262,7 +272,6 @@ namespace BibliotecaDeClases.Cifrado.Espiral
             }           
         }
         
-
         //PARA GUARDAR EL ARCHIVO rutaServer + nombreArchivo + ".txt"
         public void EscribirBuffer()
         {
@@ -276,10 +285,14 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                         {
                             writer.Write(Environment.NewLine);
                         }
+                        else if(bufferEscritura[i] == '$')
+                        {
+                            writer.Write(" ");
+                        }
                         else
                         {
                             writer.Write(bufferEscritura[i]);
-                        }                        
+                        }
                     }
                 }
             }
