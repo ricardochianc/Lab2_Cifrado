@@ -21,9 +21,9 @@ namespace BibliotecaDeClases.Cifrado.Espiral
         private char[] bufferLectura = new char[largoBuffer];
 
         int pos = 0;
-        string textoCifrado = "";
+        //string textoCifrado = "";
         char[,] matriz;
-        private int filas = 0;
+        //private int filas = 0;
 
         public Cifrado(int clave, string direccion, string nombreArchivo, string rutaAbsoluta, string rutaServer)
         {
@@ -46,7 +46,7 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                         bufferLectura = reader.ReadChars(largoBuffer);
                         matriz = new char[Clave, CalculoFilas(Clave, largoBuffer)];
 
-                        string textoCifrado = "";
+                        //string textoCifrado = "";
                         var sigValorColumna = matriz.GetLength(0);
                         var sigValorFila = matriz.GetLength(1);
                         var xarab = 0;
@@ -56,15 +56,18 @@ namespace BibliotecaDeClases.Cifrado.Espiral
 
                         var area = matriz.GetLength(0) * matriz.GetLength(1);
 
-                        //SE RELLENAN TODOS LOS ESPACIOS DE LA MATRIZ QUE QUEDEN VACIOS
+                        //SE RELLENAN TODOS LOS ESPACIOS DE LA MATRIZ CON LOS CARACTERES Y LOS QUE QUEDEN VACIOS SE RELLENAN CON EL CARACTER $
                         for (int j = 0; j < matriz.GetLength(1); j++)
                         {
                             for (int i = 0; i < matriz.GetLength(0); i++)
                             {
                                 if(pos != bufferLectura.Length)
                                 {
-                                    matriz[i,j] = bufferLectura[pos];
-                                    pos++;
+                                    if(bufferLectura[pos] != '\r')
+                                    {
+                                        matriz[i,j] = bufferLectura[pos];
+                                        pos++;
+                                    }                                    
                                 }
                                 else
                                 {
@@ -83,14 +86,14 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                 yizder = 0;
                                 yderiz = matriz.GetLength(1) - 1;                    
                     
-                                while(area > textoCifrado.Length)
-                                {               
+                                while(area > posBufferEscritura)
+                                {
                                     //DE IZQUIERDA A DERECHA
-                                    if(area > textoCifrado.Length)
+                                    if(area > posBufferEscritura) //area > textoCifrado.Length
                                     {
                                         for (int i = yizder; i < sigValorColumna; i++)
                                         {
-                                            textoCifrado += matriz[i, yizder];
+                                            //textoCifrado += matriz[i, yizder];
                                             bufferEscritura[posBufferEscritura] = matriz[i, yizder];
                                             posBufferEscritura++;
                                         }
@@ -99,11 +102,11 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                     }
 
                                     //DE ARRIBA HACIA ABAJO
-                                    if(area > textoCifrado.Length)
+                                    if(area > posBufferEscritura)
                                     {
                                         for (int j = yizder; j < sigValorFila; j++)
                                         {
-                                            textoCifrado += matriz[xarab,j];
+                                            //textoCifrado += matriz[xarab,j];
                                             bufferEscritura[posBufferEscritura] = matriz[xarab, j];
                                             posBufferEscritura++;
                                         }
@@ -113,11 +116,11 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                     }                    
                     
                                     //DE DERECHA A IZQUIERDA
-                                    if(area > textoCifrado.Length)
+                                    if(area > posBufferEscritura)
                                     {
                                         for (int i = xarab; i >= xabar; i--)
                                         {
-                                            textoCifrado += matriz[i, yderiz];
+                                            //textoCifrado += matriz[i, yderiz];
                                             bufferEscritura[posBufferEscritura] = matriz[i, yderiz];
                                             posBufferEscritura++;
                                         }
@@ -127,11 +130,11 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                     }                    
 
                                     //DE ABAJO HACIA ARRIBA
-                                    if(area > textoCifrado.Length)
+                                    if(area > posBufferEscritura)
                                     {
                                         for (int j = yderiz; j >= yizder; j--)
                                         {
-                                            textoCifrado += matriz[xabar,j];
+                                            //textoCifrado += matriz[xabar,j];
                                             bufferEscritura[posBufferEscritura] = matriz[xabar, j];
                                             posBufferEscritura++;
                                         }
@@ -148,14 +151,14 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                 yderiz = 0;
                                 yizder = matriz.GetLength(1) - 1;
 
-                                while(area > textoCifrado.Length)
+                                while(area > posBufferEscritura)
                                 {               
                                     //DE ARRIBA HACIA ABAJO
-                                    if(area > textoCifrado.Length)
+                                    if(area > posBufferEscritura)
                                     {
                                         for (int j = yderiz; j < sigValorFila; j++)
                                         {
-                                            textoCifrado += matriz[xarab,j];
+                                            //textoCifrado += matriz[xarab,j];
                                             bufferEscritura[posBufferEscritura] = matriz[xarab, j];
                                             posBufferEscritura++;
                                         }
@@ -164,11 +167,11 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                     }                    
 
                                     //DE IZQUIERDA A DERECHA
-                                    if(area > textoCifrado.Length)
+                                    if(area > posBufferEscritura)
                                     {
                                         for (int i = xarab; i < sigValorColumna; i++)
                                         {
-                                            textoCifrado += matriz[i, yizder];
+                                            //textoCifrado += matriz[i, yizder];
                                             bufferEscritura[posBufferEscritura] = matriz[i, yizder];
                                             posBufferEscritura++;
                                         }
@@ -177,11 +180,11 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                     }                    
                     
                                     //DE ABAJO HACIA ARRIBA
-                                    if(area > textoCifrado.Length)
+                                    if(area > posBufferEscritura)
                                     {
                                         for (int j = yizder; j >= yderiz; j--)
                                         {
-                                            textoCifrado += matriz[xabar,j];
+                                            //textoCifrado += matriz[xabar,j];
                                             bufferEscritura[posBufferEscritura] = matriz[xabar, j];
                                             posBufferEscritura++;
                                         }
@@ -191,11 +194,11 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                     }                    
 
                                     //DE DERECHA A IZQUIERDA
-                                    if(area > textoCifrado.Length)
+                                    if(area > posBufferEscritura)
                                     {
                                         for (int i = xabar; i >= xarab; i--)
                                         {
-                                            textoCifrado += matriz[i, yderiz];
+                                            //textoCifrado += matriz[i, yderiz];
                                             bufferEscritura[posBufferEscritura] = matriz[i, yderiz];
                                             posBufferEscritura++;
                                         }
@@ -221,7 +224,14 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                 {
                     for (int i = 0; i < posBufferEscritura; i++)
                     {
-                        writer.Write(bufferEscritura[i]);
+                        if(bufferEscritura[i] == '\n')
+                        {
+                            writer.Write(Environment.NewLine);
+                        }
+                        else
+                        {
+                            writer.Write(bufferEscritura[i]);
+                        }                        
                     }
                 }
             }
