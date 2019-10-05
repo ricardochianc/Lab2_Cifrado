@@ -21,9 +21,7 @@ namespace BibliotecaDeClases.Cifrado.Espiral
         private char[] bufferLectura = new char[largoBuffer];
 
         int pos = 0;
-        //string textoCifrado = "";
         char[,] matriz;
-        //private int filas = 0;
 
         public Cifrado(int clave, string direccion, string nombreArchivo, string rutaAbsoluta, string rutaServer)
         {
@@ -46,7 +44,8 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                         bufferLectura = reader.ReadChars(largoBuffer);
                         matriz = new char[Clave, CalculoFilas(Clave, largoBuffer)];
 
-                        //string textoCifrado = "";
+                        posBufferEscritura = 0;
+
                         var sigValorColumna = matriz.GetLength(0);
                         var sigValorFila = matriz.GetLength(1);
                         var xarab = 0;

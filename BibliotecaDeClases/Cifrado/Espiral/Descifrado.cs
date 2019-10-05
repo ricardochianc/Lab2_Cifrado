@@ -298,7 +298,6 @@ namespace BibliotecaDeClases.Cifrado.Espiral
             }
         }
         
-
         private int CalculoColumnas(int filas, int longitudTexto)
         {
             var columnas = 0;

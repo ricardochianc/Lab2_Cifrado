@@ -44,16 +44,30 @@ namespace Lab2_Cifrado.Models.Serie1
 
         public void Operar()
         {
+            var valida = false;
+
             switch (Extension)
             {
                 case "txt":
+
                     CesarCif = new CifradoCesar(PalabraClave, NombreArchivo, RutaAbsolutaArchivo, RutaAbsolutaServer);
-                    CesarCif.Cifrar();
+
+                    valida = CesarCif.ValidarClave(PalabraClave.ToCharArray());
+                    if (valida)
+                    {                        
+                        CesarCif.Cifrar();
+                    }                    
                     break;
 
                 case "cif":
+
                     CesarDescif = new DescifradoCesar(PalabraClave, NombreArchivo, RutaAbsolutaArchivo, RutaAbsolutaServer);
-                    CesarDescif.Descifrar();
+
+                    valida = CesarDescif.ValidarClave(PalabraClave.ToCharArray());
+                    if (valida)
+                    {                        
+                        CesarDescif.Descifrar();
+                    }
                     break;
             }
         }
