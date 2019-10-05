@@ -79,8 +79,9 @@ namespace Lab2_Cifrado.Controllers.Serie1
                     return RedirectToAction("PaginaPrincipalLab", "Home");
                 }
             }
-            catch
+            catch(Exception error)
             {
+                Data.Instancia.ZigZagCif.Reset();
                 return View("IndexZigZag");
             }
 
