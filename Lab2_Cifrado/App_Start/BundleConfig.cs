@@ -23,8 +23,8 @@ namespace Lab2_Cifrado
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/bootstrap-Readable.css",
+                      "~/Content/Site.css"));
         }
     }
 }

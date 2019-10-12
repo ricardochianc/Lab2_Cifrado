@@ -1,0 +1,17 @@
+﻿@using Lab2_Cifrado.Instancia
+@model Lab2_Cifrado.Models.Serie1.ZigZag
+
+@using (Html.BeginForm("Resultado","ZigZag"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">4. Resultado de la operacion</h3>
+        </div>
+        <div class="panel-body">
+            <input type="submit" value="Descargar" class="btn btn-info" name="DescargarZZ" />
+            <input type="submit" value="Home" class="btn btn-default" name="HomeSerie1" />
+        </div>
+    </div>
+}
