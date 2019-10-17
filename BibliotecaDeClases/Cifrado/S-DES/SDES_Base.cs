@@ -11,9 +11,10 @@ namespace BibliotecaDeClases.Cifrado.S_DES
     {
         public int[] P10 { get; set; } //Permunataciones para llave de 10 bits
         public int[] PCompresionKeys { get; set; } //Permutacion de compresion para K1 y K2 (no incluyen el bit1 y bit2)
-        public int[] P8 { get; set; } //Permutacion inicial de 8 bits para texto plano
+        public int[] PI { get; set; } //Permutacion inicial de 8 bits para texto plano
         public int[] ExpandirPermutar { get; set; } //Expandir y permutar (del 1 al 4, se repite 2 veces para una longitud total de 8 bits)
         public int[] P4 { get; set; } //Permutancion de 4 bits
+        public int[] PInversa { get; set; }
 
         private string[,] SBox0 { get; set; }
         private string[,] SBox1 { get; set; }
@@ -22,9 +23,10 @@ namespace BibliotecaDeClases.Cifrado.S_DES
         {
             P10 = new int[10];
             PCompresionKeys = new int[8];
-            P8 = new int[8];
+            PI = new int[8];
             ExpandirPermutar = new int[8];
             P4 = new int[4];
+            PInversa = new int[8];
 
             SBox0 = new string[4, 4]{
                 {"01", "00", "11", "10"},
@@ -61,7 +63,7 @@ namespace BibliotecaDeClases.Cifrado.S_DES
 
                 string[] p10 = lineasArchivo[0].Split(' ');
                 string[] pCompresion = lineasArchivo[1].Split(' ');
-                string[] p8 = lineasArchivo[2].Split(' ');
+                string[] pI = lineasArchivo[2].Split(' ');
                 string[] expandirPermutar = lineasArchivo[3].Split(' ');
                 string[] p4 = lineasArchivo[4].Split(' ');
 
@@ -75,9 +77,9 @@ namespace BibliotecaDeClases.Cifrado.S_DES
                     PCompresionKeys[i] = int.Parse(pCompresion[i]);
                 }
 
-                for (int i = 0; i < p8.Length; i++)
+                for (int i = 0; i < pI.Length; i++)
                 {
-                    P8[i] = int.Parse(p8[i]);
+                    PI[i] = int.Parse(pI[i]);
                 }
 
                 for (int i = 0; i < expandirPermutar.Length; i++)
@@ -89,6 +91,8 @@ namespace BibliotecaDeClases.Cifrado.S_DES
                 {
                     P4[i] = int.Parse(p4[i]);
                 }
+
+                PInversa = PermutacionInversa(PI);
 
             }
             catch (Exception e)
@@ -160,7 +164,7 @@ namespace BibliotecaDeClases.Cifrado.S_DES
             }
         }
 
-        public int[] PermutacionInversa(int[] PermutacionInicial)
+        private int[] PermutacionInversa(int[] PermutacionInicial)
         {
             try
             {
@@ -230,6 +234,158 @@ namespace BibliotecaDeClases.Cifrado.S_DES
         public string ObtenerBitsSBox1(int fila, int columna)
         {
             return SBox1[fila, columna];
+        }
+
+        public void AplicarPermutacion(string nombre, ref string binarioCadena)
+        {
+            switch (nombre)
+            {
+                case "P10":
+
+                    var aux = new int[10];
+
+                    for (int i = 0; i < P10.Length; i++)
+                    {
+                        aux[i] = binarioCadena[P10[i]];
+                    }
+
+                    binarioCadena = "";
+
+                    for (int i = 0; i < aux.Length; i++)
+                    {
+                        binarioCadena += aux[i];
+                    }
+
+                    break;
+
+                case "PCompresionKeys":
+
+                    var aux2 = new int[8];
+
+                    for (int i = 0; i < PCompresionKeys.Length; i++)
+                    {
+                        aux2[i] = binarioCadena[PCompresionKeys[i]];
+                    }
+
+                    binarioCadena = "";
+
+                    for (int i = 0; i < aux2.Length; i++)
+                    {
+                        binarioCadena += aux2[i];
+                    }
+
+                    break;
+
+                case "PI":
+
+                    var aux3 = new int[8];
+
+                    for (int i = 0; i < PI.Length; i++)
+                    {
+                        aux3[i] = binarioCadena[PI[i]];
+                    }
+
+                    binarioCadena = "";
+
+                    for (int i = 0; i < aux3.Length; i++)
+                    {
+                        binarioCadena += aux3[i];
+                    }
+
+                    break;
+
+                case "ExpandirPermutar":
+
+                    var aux4 = new int[8];
+
+                    for (int i = 0; i < ExpandirPermutar.Length; i++)
+                    {
+                        aux4[i] = binarioCadena[ExpandirPermutar[i]];
+                    }
+
+                    binarioCadena = "";
+
+                    for (int i = 0; i < aux4.Length; i++)
+                    {
+                        binarioCadena += aux4[i];
+                    }
+
+                    break;
+
+                case "P4":
+
+                    var aux5 = new int[8];
+
+                    for (int i = 0; i < P4.Length; i++)
+                    {
+                        aux5[i] = binarioCadena[P4[i]];
+                    }
+
+                    binarioCadena = "";
+
+                    for (int i = 0; i < aux5.Length; i++)
+                    {
+                        binarioCadena += aux5[i];
+                    }
+
+                    break;
+
+                case "PInversa":
+
+                    var aux6 = new int[8];
+
+                    for (int i = 0; i < PInversa.Length; i++)
+                    {
+                        aux6[i] = binarioCadena[PInversa[i]];
+                    }
+
+                    binarioCadena = "";
+
+                    for (int i = 0; i < aux6.Length; i++)
+                    {
+                        binarioCadena += aux6[i];
+                    }
+
+                    break;
+            }
+        }
+
+        public void GenerarLlaves(ref string key1, ref string key2, int claveIngresada)
+        {
+            var clave = Convert.ToString(claveIngresada, 2);
+            clave = clave.PadLeft(8, '0');
+
+            AplicarPermutacion("P10",ref clave);
+
+            var parteIzquierda = "";
+            var parteDerecha = "";
+
+            DividirCadenaBits(4,clave,ref parteIzquierda,ref parteDerecha);
+
+            //L-shift 1
+            parteIzquierda = LShift(parteIzquierda);
+            parteDerecha = LShift(parteDerecha);
+
+            var bitsConcatenados = parteIzquierda + parteDerecha; //resultado de una cadena de 10 bits
+
+            key1 = bitsConcatenados;
+
+            //Se le aplica P8 (permutacion de 8 bits o Permutacion de compresion), esto dará como resultado la KEY1
+            AplicarPermutacion("PCompresionKeys",ref key1);
+
+            //L-shift 2
+            parteIzquierda = LShift(parteIzquierda);
+            parteIzquierda = LShift(parteIzquierda);
+
+            parteDerecha = LShift(parteDerecha);
+            parteDerecha = LShift(parteDerecha);
+
+            bitsConcatenados = parteIzquierda + parteDerecha; //resultado de una cadena de 10 bits
+
+            key2 = bitsConcatenados;
+
+            //Se le aplica P8 (permutacion de 8 bits o Permutacion de compresion), esto dará como resultado la KEY2
+            AplicarPermutacion("PCompresionKeys", ref key2);
         }
     }
 }
