@@ -35,8 +35,7 @@ namespace BibliotecaDeClases.Cifrado.S_DES
         public void Cifrar()
         {
             RutaAbsolutaArchivoSCif = RutaAbsolutaServer + NombreArchivo + ".scif";
-
-            File.Create(RutaAbsolutaArchivo);
+            File.Create(RutaAbsolutaArchivo); //Crea el archivo .scif para posterirormente llenar y devolver
 
             var key1 = "";
             var key2 = "";
@@ -71,14 +70,16 @@ namespace BibliotecaDeClases.Cifrado.S_DES
                                 var bloqueDerecho = "";
                                 var bloqueDerechoOriginal = bloqueDerecho;
 
+                                //Los 8 bits del caracter se dividen en 4
                                 UtilidadeSDES.DividirCadenaBits(4,caracterBits,ref bloqueIzquierdo,ref bloqueDerecho);
-                                bloqueDerechoOriginal = bloqueDerecho;
+                                bloqueDerechoOriginal = bloqueDerecho; //Se guarda un original o copia del bloque derecho para trabajar con uno y tener la copia para usarla al final de la ronda 1
+
 
                                 UtilidadeSDES.AplicarPermutacion("ExpandirPermutar",ref bloqueDerecho); //Se le aplica Expandir y permutar al bloque derecho de 4 bits, para obtener un expandido de 8 bits
 
                                 var binarioResultante = UtilidadeSDES.XOR(bloqueDerecho, key1);
 
-                                //Estos serviran para luego hacer las consultas en las SBoxes
+                                //Del resultante del XOR se toman los 4 bits más a la derecha para consultar SBox0 y los 4 más a la izquierda para consultar a SBox1
                                 var MasIzquierdos = (binarioResultante[0] + binarioResultante[1] + binarioResultante[2] +binarioResultante[3]).ToString();
                                 var MasDerechos = (binarioResultante[4] + binarioResultante[5] + binarioResultante[6] + binarioResultante[7]).ToString();
 
@@ -87,26 +88,26 @@ namespace BibliotecaDeClases.Cifrado.S_DES
 
                                 UtilidadeSDES.ObtenerFilaColumna(MasIzquierdos, ref fila, ref columna);
 
-                                var bitsResultantesSBoxes = UtilidadeSDES.ObtenerBitsSBox0(fila, columna);
+                                var bitsResultantesSBoxes = UtilidadeSDES.ObtenerBitsSBox0(fila, columna); //Se obitnene los primeros 2 bits que devulve la SBox0
 
-                                UtilidadeSDES.ObtenerFilaColumna(MasDerechos,ref fila,ref columna);
+                                UtilidadeSDES.ObtenerFilaColumna(MasDerechos,ref fila,ref columna); //Se vuelve a obtener filas y columnas pero ahora del bloque 2 para SBox1
 
-                                bitsResultantesSBoxes += UtilidadeSDES.ObtenerBitsSBox1(fila, columna);
+                                bitsResultantesSBoxes += UtilidadeSDES.ObtenerBitsSBox1(fila, columna); //A los 2 bits de SBox0, se le concatenan los nuevos 2 bits obtenidos SBox1
 
-                                UtilidadeSDES.AplicarPermutacion("P4",ref bitsResultantesSBoxes); //Se le aplica una permutacion de 4 bits
+                                UtilidadeSDES.AplicarPermutacion("P4",ref bitsResultantesSBoxes); //Se le aplica una permutacion de 4 bits, a la cadena resultante de ambas SBox
 
-                                var resultadoBits = UtilidadeSDES.XOR(bitsResultantesSBoxes, bloqueIzquierdo);
+                                var resultadoBits = UtilidadeSDES.XOR(bitsResultantesSBoxes, bloqueIzquierdo); //Se hace un Xor de los 4 bits resultantes de las SBoxes con los 4 bits del bloque izquierdo que no se usó en la ronda 1, hasta ahora.
 
-                                var resultadoRonda1 = resultadoBits.ToString() + bloqueDerechoOriginal.ToString();
-                                //-----------------------------------------------------------------------------------------------------------------------------------------
+                                var resultadoRonda1 = resultadoBits.ToString() + bloqueDerechoOriginal.ToString(); //Resultado de la ronda 1
+                                //Termina ronda 1------------------------------------------------------------------------------------------------------------------------------
 
                                 //RONDA 2-----------------------------------------------------------------------------------------------------------------------------------
-
+                                //Se hace exacamente lo mismo de la ronda 1, las variables ahora tienen un 2, que representa al número de ronda
                                 var bloqueIzquierdo2 = "";
                                 var bloqueDerecho2 = "";
                                 var bloqueDerechoOriginal2 = bloqueDerecho2;
 
-                                //Se ingresa el izquierdo en el derecho y derecho en izquierdo con el motivo de intercambiar de lados
+                                //Se ingresa el izquierdo en el derecho y derecho en izquierdo con el motivo de intercambiar de lados, luego se trabaja como en ronda 1
                                 UtilidadeSDES.DividirCadenaBits(4,resultadoRonda1, ref bloqueDerecho2,ref bloqueIzquierdo2);
                                 bloqueDerechoOriginal2 = bloqueDerecho2;
 
@@ -135,7 +136,9 @@ namespace BibliotecaDeClases.Cifrado.S_DES
 
                                 var resultadoRonda2 = resultadoBits2.ToString() + bloqueDerechoOriginal2.ToString();
 
-                                UtilidadeSDES.AplicarPermutacion("PInversa",ref resultadoRonda2); //resultadoRonda2 es el que se manda a escribir
+                                //Termina ronda 2--------------------------------------------------------------------------------------------------------------------
+
+                                UtilidadeSDES.AplicarPermutacion("PInversa",ref resultadoRonda2); //Al resultadoRonda2, se le aplica Permutacion Inversa y ese resultado es el que se manda a escribir
 
                                 bufferEscritura[contBuffer] = Convert.ToByte(Convert.ToInt32(resultadoRonda2,2));
                             }
@@ -144,7 +147,7 @@ namespace BibliotecaDeClases.Cifrado.S_DES
                                 throw new Exception("Mayor a 8 bits");
                             }
                         }
-                        //Mandar a escribir buffer de escritura
+                        //Manda a escribir al archivo el buffer
                         EscribirBuffer(bufferEscritura);
                     }
                 }
