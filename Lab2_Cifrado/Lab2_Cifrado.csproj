@@ -184,6 +184,10 @@
     <Content Include="Views\Cesar\_ResultadoCesar.cshtml" />
     <Content Include="Views\Serie2\SeleccionarOpcion.cshtml" />
     <Content Include="Views\SDES\IndexSDES.cshtml" />
+    <Content Include="Views\SDES\_CargarArchivoPermutaciones.cshtml" />
+    <Content Include="Views\SDES\_CargarArchivoSDES.cshtml" />
+    <Content Include="Views\SDES\_OperarSDES.cshtml" />
+    <Content Include="Views\SDES\_ResultadoSDES.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
