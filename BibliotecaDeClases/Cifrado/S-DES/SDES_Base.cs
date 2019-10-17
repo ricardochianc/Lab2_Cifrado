@@ -58,5 +58,68 @@ namespace BibliotecaDeClases.Cifrado.S_DES
                 throw new Exception("Error en XOR | " + e.Message);
             }
         }
+
+        public void DividirCadenaBits(int longitudEsperada, string cadenaBinario, ref string ParteIzquierda, ref string ParteDerecha)
+        {
+            try
+            {
+                ParteIzquierda = cadenaBinario.Substring(0, longitudEsperada);
+                ParteDerecha = cadenaBinario.Substring(longitudEsperada, longitudEsperada);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error en dividir cadena | " + e.Message);
+            }
+        }
+
+        public string LShift(string cadenaBinario)
+        {
+            try
+            {
+                var numeroDecimal = Convert.ToInt32(cadenaBinario, 2);
+
+                var resultado1 = (numeroDecimal << 1);
+
+                var resultado1Binario = Convert.ToString(resultado1, 2);
+
+                if (resultado1Binario.Length > 5)
+                {
+                    resultado1Binario = resultado1Binario.Remove(0, resultado1Binario.Length - 5);
+                }
+
+                resultado1 = Convert.ToInt32(resultado1Binario, 2);
+
+                var resultado2 = (numeroDecimal >> (5 - 1));
+
+                var resultadoDesplazamiento = resultado1 | resultado2;
+
+                var final = Convert.ToString(resultadoDesplazamiento, 2);
+
+                return final = final.PadLeft(5, '0');
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error en L-Shift | " + e.Message);
+            }
+        }
+
+        public int[] PermutacionInversa(int[] PermutacionInicial)
+        {
+            try
+            {
+                var resultado = new int[8];
+
+                for (int i = 0; i < resultado.Length; i++)
+                {
+                    resultado[PermutacionInicial[i] - 1] = i + 1;
+                }
+
+                return resultado;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error en hacer la permutación inversa | " + e.Message);
+            }
+        }
     }
 }
