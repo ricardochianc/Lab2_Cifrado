@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Lab2_Cifrado.Instancia;
 
 namespace Lab2_Cifrado.Controllers
 {
@@ -19,12 +20,13 @@ namespace Lab2_Cifrado.Controllers
         {
             if (formCollection["CargarPermutaciones"] != null)
             {
-                return RedirectToAction("", "");
+                Data.Instancia.ModificarPermutaciones = true;
+                return RedirectToAction("IndexSDES", "SDES"); //mandarlo directamente a cargar archivo
             }
 
             if (formCollection["Continuar"] != null)
             {
-                return RedirectToAction("", "");
+                return RedirectToAction("IndexSDES", "SDES");
             }
 
             return null;

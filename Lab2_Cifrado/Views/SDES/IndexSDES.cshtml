@@ -1,0 +1,32 @@
+﻿@using Lab2_Cifrado.Instancia
+@model Lab2_Cifrado.Models.Serie2.SDES
+
+@{
+    ViewBag.Title = "S-DES | ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2>S-DES</h2>
+
+@if (Data.Instancia.ModificarPermutaciones == true)
+{
+    @Html.Partial("")
+    Data.Instancia.ModificarPermutaciones = false;
+}
+
+@if (Data.Instancia.ArchivoCargado == false)
+{
+    @Html.Partial("")
+}
+
+@if (Data.Instancia.ArchivoCargado && Data.Instancia.EleccionOperacion == false)
+{
+    @Html.Partial("")
+}
+
+@if (Data.Instancia.ArchivoCargado && Data.Instancia.EleccionOperacion)
+{
+    @Html.Partial("")
+}
+

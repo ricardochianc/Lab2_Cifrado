@@ -124,6 +124,7 @@
     <Compile Include="Controllers\Serie1\EspiralController.cs" />
     <Compile Include="Controllers\Serie1\ZigZagController.cs" />
     <Compile Include="Controllers\Serie2Controller.cs" />
+    <Compile Include="Controllers\Serie2\SDESController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -181,10 +182,11 @@
     <Content Include="Views\ZigZag\_ResultadoZZ.cshtml" />
     <Content Include="Views\Espiral\_ResultadoEspiral.cshtml" />
     <Content Include="Views\Cesar\_ResultadoCesar.cshtml" />
+    <Content Include="Views\Serie2\SeleccionarOpcion.cshtml" />
+    <Content Include="Views\SDES\IndexSDES.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Serie2\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
