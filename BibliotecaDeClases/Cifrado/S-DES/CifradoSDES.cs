@@ -29,7 +29,11 @@ namespace BibliotecaDeClases.Cifrado.S_DES
             Clave = clave;
 
             UtilidadeSDES = new SDES_Base();
-            UtilidadeSDES.AsignarPermutaciones(rutaArchivoPermutaciones);
+
+            if (rutaArchivoPermutaciones != "")
+            {
+                UtilidadeSDES.AsignarPermutaciones(rutaArchivoPermutaciones);
+            }
         }
 
         public void Cifrar()
