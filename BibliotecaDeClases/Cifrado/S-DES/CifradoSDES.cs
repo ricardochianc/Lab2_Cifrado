@@ -39,7 +39,7 @@ namespace BibliotecaDeClases.Cifrado.S_DES
         public void Cifrar()
         {
             RutaAbsolutaArchivoSCif = RutaAbsolutaServer + NombreArchivo + ".scif";
-            File.Create(RutaAbsolutaArchivo); //Crea el archivo .scif para posterirormente llenar y devolver
+            File.Create(RutaAbsolutaArchivoSCif); //Crea el archivo .scif para posterirormente llenar y devolver
 
             var key1 = "";
             var key2 = "";

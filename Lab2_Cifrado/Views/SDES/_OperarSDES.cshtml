@@ -12,8 +12,6 @@
             @Html.AntiForgeryToken()
 
             <div class="form-horizontal">
-                <h4>SDES</h4>
-                <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.LabelFor(model => model.Clave, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -25,7 +23,8 @@
                 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Cifrar/Descifrar" class="btn btn-info" />
+                        <small>Recuerde su clave para operar correctamente</small>
+                        <input type="submit" value="Cifrar/Descifrar" class="btn btn-info"/>
                     </div>
                 </div>
             </div>

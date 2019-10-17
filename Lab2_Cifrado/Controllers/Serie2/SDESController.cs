@@ -32,6 +32,8 @@ namespace Lab2_Cifrado.Controllers.Serie2
                 Data.Instancia.RutaPermutaciones = FilePath;
             }
 
+            Data.Instancia.ModificarPermutaciones = false;
+
             return RedirectToAction("IndexSDES");
         }
 

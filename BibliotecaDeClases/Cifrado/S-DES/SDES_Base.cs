@@ -247,11 +247,11 @@ namespace BibliotecaDeClases.Cifrado.S_DES
             {
                 case "P10":
 
-                    var aux = new int[10];
+                    var aux = new string[10];
 
                     for (int i = 0; i < P10.Length; i++)
                     {
-                        aux[i] = binarioCadena[P10[i]];
+                        aux[i] = binarioCadena[P10[i] - 1].ToString();
                     }
 
                     binarioCadena = "";
@@ -265,11 +265,11 @@ namespace BibliotecaDeClases.Cifrado.S_DES
 
                 case "PCompresionKeys":
 
-                    var aux2 = new int[8];
+                    var aux2 = new string[8];
 
                     for (int i = 0; i < PCompresionKeys.Length; i++)
                     {
-                        aux2[i] = binarioCadena[PCompresionKeys[i]];
+                        aux2[i] = binarioCadena[PCompresionKeys[i] - 1].ToString();
                     }
 
                     binarioCadena = "";
@@ -283,11 +283,11 @@ namespace BibliotecaDeClases.Cifrado.S_DES
 
                 case "PI":
 
-                    var aux3 = new int[8];
+                    var aux3 = new string[8];
 
                     for (int i = 0; i < PI.Length; i++)
                     {
-                        aux3[i] = binarioCadena[PI[i]];
+                        aux3[i] = binarioCadena[PI[i] - 1].ToString();
                     }
 
                     binarioCadena = "";
@@ -301,11 +301,11 @@ namespace BibliotecaDeClases.Cifrado.S_DES
 
                 case "ExpandirPermutar":
 
-                    var aux4 = new int[8];
+                    var aux4 = new string[8];
 
                     for (int i = 0; i < ExpandirPermutar.Length; i++)
                     {
-                        aux4[i] = binarioCadena[ExpandirPermutar[i]];
+                        aux4[i] = binarioCadena[ExpandirPermutar[i] - 1].ToString();
                     }
 
                     binarioCadena = "";
@@ -319,11 +319,11 @@ namespace BibliotecaDeClases.Cifrado.S_DES
 
                 case "P4":
 
-                    var aux5 = new int[8];
+                    var aux5 = new string[4];
 
                     for (int i = 0; i < P4.Length; i++)
                     {
-                        aux5[i] = binarioCadena[P4[i]];
+                        aux5[i] = binarioCadena[P4[i] - 1].ToString();
                     }
 
                     binarioCadena = "";
@@ -337,11 +337,11 @@ namespace BibliotecaDeClases.Cifrado.S_DES
 
                 case "PInversa":
 
-                    var aux6 = new int[8];
+                    var aux6 = new string[8];
 
                     for (int i = 0; i < PInversa.Length; i++)
                     {
-                        aux6[i] = binarioCadena[PInversa[i]];
+                        aux6[i] = binarioCadena[PInversa[i] - 1].ToString();
                     }
 
                     binarioCadena = "";
@@ -361,12 +361,12 @@ namespace BibliotecaDeClases.Cifrado.S_DES
             var clave = Convert.ToString(claveIngresada, 2);
             clave = clave.PadLeft(8, '0');
 
-            AplicarPermutacion("P10",ref clave);
+            AplicarPermutacion("P10", ref clave);
 
             var parteIzquierda = "";
             var parteDerecha = "";
 
-            DividirCadenaBits(4,clave,ref parteIzquierda,ref parteDerecha);
+            DividirCadenaBits(5, clave, ref parteIzquierda, ref parteDerecha);
 
             //L-shift 1
             parteIzquierda = LShift(parteIzquierda);
@@ -377,7 +377,7 @@ namespace BibliotecaDeClases.Cifrado.S_DES
             key1 = bitsConcatenados;
 
             //Se le aplica P8 (permutacion de 8 bits o Permutacion de compresion), esto dará como resultado la KEY1
-            AplicarPermutacion("PCompresionKeys",ref key1);
+            AplicarPermutacion("PCompresionKeys", ref key1);
 
             //L-shift 2
             parteIzquierda = LShift(parteIzquierda);
