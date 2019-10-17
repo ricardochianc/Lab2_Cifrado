@@ -123,6 +123,7 @@
     <Compile Include="Controllers\Serie1\CesarController.cs" />
     <Compile Include="Controllers\Serie1\EspiralController.cs" />
     <Compile Include="Controllers\Serie1\ZigZagController.cs" />
+    <Compile Include="Controllers\Serie2Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -183,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Serie2\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
