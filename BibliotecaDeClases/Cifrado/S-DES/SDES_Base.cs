@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,11 +9,11 @@ namespace BibliotecaDeClases.Cifrado.S_DES
 {
     internal class SDES_Base
     {
-        private int[] P10 { get; set; } //Permunataciones para llave de 10 bits
-        private int[] PCompresionKeys { get; set; } //Permutacion de compresion para K1 y K2 (no incluyen el bit1 y bit2)
-        private int[] P8 { get; set; } //Permutacion inicial de 8 bits para texto plano
-        private int[] ExpandirPermutar { get; set; } //Expandir y permutar (del 1 al 4, se repite 2 veces para una longitud total de 8 bits)
-        private int[] P4 { get; set; } //Permutancion de 4 bits
+        public int[] P10 { get; set; } //Permunataciones para llave de 10 bits
+        public int[] PCompresionKeys { get; set; } //Permutacion de compresion para K1 y K2 (no incluyen el bit1 y bit2)
+        public int[] P8 { get; set; } //Permutacion inicial de 8 bits para texto plano
+        public int[] ExpandirPermutar { get; set; } //Expandir y permutar (del 1 al 4, se repite 2 veces para una longitud total de 8 bits)
+        public int[] P4 { get; set; } //Permutancion de 4 bits
 
         private string[,] SBox0 { get; set; }
         private string[,] SBox1 { get; set; }
@@ -38,6 +39,62 @@ namespace BibliotecaDeClases.Cifrado.S_DES
                 {"11", "00", "01", "00"},
                 {"10", "01", "00", "11"}
             };
+        }
+
+        public void AsignarPermutaciones(string pathPermutaciones) //Necesita el path del archivo SDES.ini para obtener las permutaciones del archivo
+        {
+            try
+            {
+                List<string> lineasArchivo = new List<string>();
+
+                using (var file = new FileStream(pathPermutaciones, FileMode.Open))
+                {
+                    using (var reader = new StreamReader(file))
+                    {
+                        while (!reader.EndOfStream)
+                        {
+                            lineasArchivo.Add(reader.ReadLine().Split('|')[1]);
+                        }
+                    }
+                }
+
+
+                string[] p10 = lineasArchivo[0].Split(' ');
+                string[] pCompresion = lineasArchivo[1].Split(' ');
+                string[] p8 = lineasArchivo[2].Split(' ');
+                string[] expandirPermutar = lineasArchivo[3].Split(' ');
+                string[] p4 = lineasArchivo[4].Split(' ');
+
+                for (int i = 0; i < p10.Length; i++)
+                {
+                    P10[i] = int.Parse(p10[i]);
+                }
+
+                for (int i = 0; i < pCompresion.Length; i++)
+                {
+                    PCompresionKeys[i] = int.Parse(pCompresion[i]);
+                }
+
+                for (int i = 0; i < p8.Length; i++)
+                {
+                    P8[i] = int.Parse(p8[i]);
+                }
+
+                for (int i = 0; i < expandirPermutar.Length; i++)
+                {
+                    ExpandirPermutar[i] = int.Parse(expandirPermutar[i]);
+                }
+
+                for (int i = 0; i < p4.Length; i++)
+                {
+                    P4[i] = int.Parse(p4[i]);
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error en la asignacion de las permutaciones, verifique formato de archivo SDES.ini | " + e.Message);
+            }
         }
 
         public string XOR(string cadenaBinario1, string cadenaBinario2)
@@ -163,6 +220,16 @@ namespace BibliotecaDeClases.Cifrado.S_DES
                     columna = 3;
                     break;
             }
+        }
+
+        public string ObtenerBitsSBox0(int fila, int columna)
+        {
+            return SBox0[fila, columna];
+        }
+
+        public string ObtenerBitsSBox1(int fila, int columna)
+        {
+            return SBox1[fila, columna];
         }
     }
 }
