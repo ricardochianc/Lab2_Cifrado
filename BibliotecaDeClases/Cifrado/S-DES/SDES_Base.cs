@@ -121,5 +121,48 @@ namespace BibliotecaDeClases.Cifrado.S_DES
                 throw new Exception("Error en hacer la permutación inversa | " + e.Message);
             }
         }
+
+        public void ObtenerFilaColumna(string cadena4bits, ref int fila, ref int columna)
+        {
+            //Fila = bit1 y bit4
+            switch (cadena4bits[0].ToString() + cadena4bits[3].ToString())
+            {
+                case "00":
+                    fila = 0;
+                    break;
+
+                case "01":
+                    fila = 1;
+                    break;
+
+                case "10":
+                    fila = 2;
+                    break;
+
+                case "11":
+                    fila = 3;
+                    break;
+            }
+
+            //Columna = bit2 y bit3
+            switch (cadena4bits[1].ToString() + cadena4bits[2].ToString())
+            {
+                case "00":
+                    columna = 0;
+                    break;
+
+                case "01":
+                    columna = 1;
+                    break;
+
+                case "10":
+                    columna = 2;
+                    break;
+
+                case "11":
+                    columna = 3;
+                    break;
+            }
+        }
     }
 }
