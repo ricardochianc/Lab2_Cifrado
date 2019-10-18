@@ -1,0 +1,5 @@
+Permutacion para llave 10 bits|3 5 2 7 4 10 1 9 8 6
+Permutacion de compresion para K1 (no se debe de inlcuir bit 1 y bit 2)|6 3 7 4 8 5 10 9
+Permutacion inicial de 8 bits|2 6 3 1 4 8 5 7
+Expandir y permutar (del bit 1 al bit 4)|4 1 2 3 2 3 4 1
+Permutacion de 4 bits|2 4 3 1

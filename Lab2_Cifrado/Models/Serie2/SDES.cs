@@ -92,7 +92,7 @@ namespace Lab2_Cifrado.Models.Serie2
                    break;
 
                 case "txt":
-                    File.Delete(RutaAbsolutaServer + NombreArchivo + ".txt");
+                    File.Delete(RutaAbsolutaServer + NombreArchivo + ".scif");
                     CifradoSDES = new CifradoSDES("","","",0,"");
                     break;
             }

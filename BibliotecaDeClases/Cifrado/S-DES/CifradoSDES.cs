@@ -39,7 +39,6 @@ namespace BibliotecaDeClases.Cifrado.S_DES
         public void Cifrar()
         {
             RutaAbsolutaArchivoSCif = RutaAbsolutaServer + NombreArchivo + ".scif";
-            File.Create(RutaAbsolutaArchivoSCif); //Crea el archivo .scif para posterirormente llenar y devolver
 
             var key1 = "";
             var key2 = "";
@@ -63,8 +62,8 @@ namespace BibliotecaDeClases.Cifrado.S_DES
                         {
                             var caracterBits = Convert.ToString(caracter, 2); //Se convierte a binario el byte
 
-                            if (caracterBits.Length <= 8)
-                            {
+                            if (caracterBits.Length <= 8){
+                                
                                 caracterBits = caracterBits.PadLeft(8, '0'); //Se rellena de ceros a la izquierda, si son menos de 8 bits
 
                                 UtilidadeSDES.AplicarPermutacion("PI",ref caracterBits); //Se le hace permutacion inicial
@@ -84,8 +83,8 @@ namespace BibliotecaDeClases.Cifrado.S_DES
                                 var binarioResultante = UtilidadeSDES.XOR(bloqueDerecho, key1);
 
                                 //Del resultante del XOR se toman los 4 bits más a la derecha para consultar SBox0 y los 4 más a la izquierda para consultar a SBox1
-                                var MasIzquierdos = (binarioResultante[0] + binarioResultante[1] + binarioResultante[2] +binarioResultante[3]).ToString();
-                                var MasDerechos = (binarioResultante[4] + binarioResultante[5] + binarioResultante[6] + binarioResultante[7]).ToString();
+                                var MasIzquierdos = binarioResultante[0].ToString() + binarioResultante[1].ToString() + binarioResultante[2].ToString() +binarioResultante[3].ToString();
+                                var MasDerechos = binarioResultante[4].ToString() + binarioResultante[5].ToString() + binarioResultante[6].ToString() + binarioResultante[7].ToString();
 
                                 var fila = 0;
                                 var columna = 0;
@@ -117,11 +116,11 @@ namespace BibliotecaDeClases.Cifrado.S_DES
 
                                 UtilidadeSDES.AplicarPermutacion("ExpandirPermutar",ref bloqueDerecho2);
 
-                                var binarioResultante2 = UtilidadeSDES.XOR(bloqueDerecho, key2);
+                                var binarioResultante2 = UtilidadeSDES.XOR(bloqueDerecho2, key2);
 
                                 //Estos serviran para luego hacer las consultas en las SBoxes
-                                var MasIzquierdos2 = (binarioResultante2[0] + binarioResultante2[1] + binarioResultante2[2] + binarioResultante2[3]).ToString();
-                                var MasDerechos2 = (binarioResultante2[4] + binarioResultante2[5] + binarioResultante2[6] + binarioResultante2[7]).ToString();
+                                var MasIzquierdos2 = binarioResultante2[0].ToString() + binarioResultante2[1].ToString() + binarioResultante2[2].ToString() + binarioResultante2[3].ToString();
+                                var MasDerechos2 = binarioResultante2[4].ToString() + binarioResultante2[5].ToString() + binarioResultante2[6].ToString() + binarioResultante2[7].ToString();
 
                                 var fila2 = 0;
                                 var columna2 = 0;
@@ -145,6 +144,7 @@ namespace BibliotecaDeClases.Cifrado.S_DES
                                 UtilidadeSDES.AplicarPermutacion("PInversa",ref resultadoRonda2); //Al resultadoRonda2, se le aplica Permutacion Inversa y ese resultado es el que se manda a escribir
 
                                 bufferEscritura[contBuffer] = Convert.ToByte(Convert.ToInt32(resultadoRonda2,2));
+                                contBuffer++;
                             }
                             else
                             {
@@ -156,6 +156,7 @@ namespace BibliotecaDeClases.Cifrado.S_DES
                     }
                 }
             }
+            File.Delete(RutaAbsolutaArchivo);
         }
 
         private void EscribirBuffer(byte[] buffer)
