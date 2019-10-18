@@ -35,7 +35,7 @@ namespace Lab2_Cifrado.Instancia
         public Cesar CesarCif = new Cesar();
 
         public SDES SDES_Cif = new SDES();
-         public string RutaPermutaciones = string.Empty;
+        public string RutaPermutaciones = string.Empty;
         public bool ModificarPermutaciones = false;
     }
 }

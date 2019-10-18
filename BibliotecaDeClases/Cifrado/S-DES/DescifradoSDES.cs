@@ -14,6 +14,7 @@ namespace BibliotecaDeClases.Cifrado.S_DES
         private string RutaAbsolutaArchivo { get; set; }
         private string RutaAbsolutaServer { get; set; }
         public string RutaAbsolutaArchivoDescif { get; set; } //Para el .scif
+        public string RutaArchivoPermutaciones { get; set; }
 
         private int Clave { get; set; }
         private SDES_Base UtilidadeSDES { get; set; }
@@ -26,6 +27,8 @@ namespace BibliotecaDeClases.Cifrado.S_DES
             RutaAbsolutaArchivo = RutaAbsArchivo;
             RutaAbsolutaServer = RutaAbsServer;
             RutaAbsolutaArchivoDescif = "";
+            RutaArchivoPermutaciones = rutaArchivoPermutaciones;
+
             Clave = clave;
 
             UtilidadeSDES = new SDES_Base();
@@ -102,19 +105,61 @@ namespace BibliotecaDeClases.Cifrado.S_DES
 
                                 var resultadoRonda1 = resultadoBits.ToString() + bloqueDerechoOriginal.ToString(); //Resultado de la ronda 1
                                 //Termina ronda 1------------------------------------------------------------------------------------------------------------------------------
+                                
+                                //RONDA 2-----------------------------------------------------------------------------------------------------------------------------------
+                                
+                                //Se hace exacamente lo mismo de la ronda 1, las variables ahora tienen un 2, que representa al número de ronda
+                                var bloqueIzquierdo2 = "";
+                                var bloqueDerecho2 = "";
+                                var bloqueDerechoOriginal2 = bloqueDerecho2;
 
+                                //Se ingresa el izquierdo en el derecho y derecho en izquierdo con el motivo de intercambiar de lados, luego se trabaja como en ronda 1
+                                UtilidadeSDES.DividirCadenaBits(4,resultadoRonda1, ref bloqueDerecho2,ref bloqueIzquierdo2);
+                                bloqueDerechoOriginal2 = bloqueDerecho2;
 
+                                UtilidadeSDES.AplicarPermutacion("ExpandirPermutar",ref bloqueDerecho2);
+
+                                var binarioResultante2 = UtilidadeSDES.XOR(bloqueDerecho2, key1);
+
+                                //Estos serviran para luego hacer las consultas en las SBoxes
+                                var MasIzquierdos2 = binarioResultante2[0].ToString() + binarioResultante2[1].ToString() + binarioResultante2[2].ToString() + binarioResultante2[3].ToString();
+                                var MasDerechos2 = binarioResultante2[4].ToString() + binarioResultante2[5].ToString() + binarioResultante2[6].ToString() + binarioResultante2[7].ToString();
+
+                                var fila2 = 0;
+                                var columna2 = 0;
+
+                                UtilidadeSDES.ObtenerFilaColumna(MasIzquierdos2, ref fila2, ref columna2);
+
+                                var bitsResultantesSBoxes2 = UtilidadeSDES.ObtenerBitsSBox0(fila2, columna2);
+
+                                UtilidadeSDES.ObtenerFilaColumna(MasDerechos2, ref fila2, ref columna2);
+
+                                bitsResultantesSBoxes2 += UtilidadeSDES.ObtenerBitsSBox1(fila2, columna2);
+
+                                UtilidadeSDES.AplicarPermutacion("P4", ref bitsResultantesSBoxes2); //Se le aplica una permutacion de 4 bits
+
+                                var resultadoBits2 = UtilidadeSDES.XOR(bitsResultantesSBoxes2, bloqueIzquierdo2);
+
+                                var resultadoRonda2 = resultadoBits2.ToString() + bloqueDerechoOriginal2.ToString();
+
+                                //Termina ronda 2--------------------------------------------------------------------------------------------------------------------
+
+                                UtilidadeSDES.AplicarPermutacion("PInversa",ref resultadoRonda2); //Al resultadoRonda2, se le aplica Permutacion Inversa y ese resultado es el que se manda a escribir
+
+                                bufferEscritura[contBuffer] = Convert.ToByte(Convert.ToInt32(resultadoRonda2,2));
+                                contBuffer++;                                
                             }
                             else
                             {
                                 throw new Exception("Mayor a 8 bits");
                             }
                         }
-                        
+                        EscribirBuffer(bufferEscritura);
                     }
                 }
             }
             File.Delete(RutaAbsolutaArchivo);
+            //File.Delete(RutaArchivoPermutaciones);
         }
 
         private void EscribirBuffer(byte[] buffer)

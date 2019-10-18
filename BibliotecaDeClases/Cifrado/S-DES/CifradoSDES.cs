@@ -14,6 +14,7 @@ namespace BibliotecaDeClases.Cifrado.S_DES
         private string RutaAbsolutaArchivo { get; set; }
         private string RutaAbsolutaServer { get; set; }
         public string RutaAbsolutaArchivoSCif { get; set; } //Para el .scif
+        public string RutaArchivoPermutaciones { get; set; }
 
         private int Clave { get; set; }
         private SDES_Base UtilidadeSDES { get; set; }
@@ -26,6 +27,7 @@ namespace BibliotecaDeClases.Cifrado.S_DES
             RutaAbsolutaArchivo = RutaAbsArchivo;
             RutaAbsolutaServer = RutaAbsServer;
             RutaAbsolutaArchivoSCif = "";
+            RutaArchivoPermutaciones = rutaArchivoPermutaciones;
             Clave = clave;
 
             UtilidadeSDES = new SDES_Base();
@@ -157,6 +159,7 @@ namespace BibliotecaDeClases.Cifrado.S_DES
                 }
             }
             File.Delete(RutaAbsolutaArchivo);
+            //File.Delete(RutaArchivoPermutaciones);
         }
 
         private void EscribirBuffer(byte[] buffer)

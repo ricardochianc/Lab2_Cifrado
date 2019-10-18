@@ -359,7 +359,7 @@ namespace BibliotecaDeClases.Cifrado.S_DES
         public void GenerarLlaves(ref string key1, ref string key2, int claveIngresada)
         {
             var clave = Convert.ToString(claveIngresada, 2);
-            clave = clave.PadLeft(8, '0');
+            clave = clave.PadLeft(10, '0');
 
             AplicarPermutacion("P10", ref clave);
 
