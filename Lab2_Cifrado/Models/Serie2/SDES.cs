@@ -22,6 +22,7 @@ namespace Lab2_Cifrado.Models.Serie2
         private string Extension { get; set; }
 
         private CifradoSDES CifradoSDES { get; set; } //agregar uno igual solo que de DESCIFRADO
+        private DescifradoSDES DescifradoSDES { get; set; }
 
         public SDES()
         {
@@ -55,6 +56,8 @@ namespace Lab2_Cifrado.Models.Serie2
                         break;
 
                     case "scif": //Descifra
+                        DescifradoSDES = new DescifradoSDES(NombreArchivo, RutaAbsolutaArchivo, RutaAbsolutaServer, Clave, rutaArchivoPermutaciones);
+                        DescifradoSDES.Descifrar();
                         break;
 
                 }
@@ -70,13 +73,16 @@ namespace Lab2_Cifrado.Models.Serie2
             switch (Extension)
             {
                 case "txt": //Devuelve uno cifrado
-                    var path = RutaAbsolutaServer + NombreArchivo + ".scif";
-                    var file = new FileStream(path, FileMode.Open, FileAccess.Read);
+                    var pathtxt = RutaAbsolutaServer + NombreArchivo + ".scif";
+                    var filescif = new FileStream(pathtxt, FileMode.Open, FileAccess.Read);
                     extension = ".scif";
-                    return file;
+                    return filescif;
 
                 case "scif": //Devulve uno descifrado
-                    return null;
+                    var pathscif = RutaAbsolutaServer + NombreArchivo + ".txt";
+                    var filetxt = new FileStream(pathscif, FileMode.Open, FileAccess.Read);
+                    extension = ".txt";
+                    return filetxt;
             }
 
             return null;
@@ -88,7 +94,7 @@ namespace Lab2_Cifrado.Models.Serie2
             {
                 case "scif":
                     File.Delete(RutaAbsolutaServer + NombreArchivo + ".txt");
-                    //Intanciar un Descifrado vacio, como el de abajo
+                    DescifradoSDES = new DescifradoSDES("","","",0,"");
                    break;
 
                 case "txt":
