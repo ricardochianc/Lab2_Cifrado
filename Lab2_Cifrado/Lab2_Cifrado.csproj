@@ -123,6 +123,8 @@
     <Compile Include="Controllers\Serie1\CesarController.cs" />
     <Compile Include="Controllers\Serie1\EspiralController.cs" />
     <Compile Include="Controllers\Serie1\ZigZagController.cs" />
+    <Compile Include="Controllers\Serie2Controller.cs" />
+    <Compile Include="Controllers\Serie2\SDESController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -130,6 +132,7 @@
     <Compile Include="Models\Serie1\Cesar.cs" />
     <Compile Include="Models\Serie1\Espiral.cs" />
     <Compile Include="Models\Serie1\ZigZag.cs" />
+    <Compile Include="Models\Serie2\SDES.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +182,12 @@
     <Content Include="Views\ZigZag\_ResultadoZZ.cshtml" />
     <Content Include="Views\Espiral\_ResultadoEspiral.cshtml" />
     <Content Include="Views\Cesar\_ResultadoCesar.cshtml" />
+    <Content Include="Views\Serie2\SeleccionarOpcion.cshtml" />
+    <Content Include="Views\SDES\IndexSDES.cshtml" />
+    <Content Include="Views\SDES\_CargarArchivoPermutaciones.cshtml" />
+    <Content Include="Views\SDES\_CargarArchivoSDES.cshtml" />
+    <Content Include="Views\SDES\_OperarSDES.cshtml" />
+    <Content Include="Views\SDES\_ResultadoSDES.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

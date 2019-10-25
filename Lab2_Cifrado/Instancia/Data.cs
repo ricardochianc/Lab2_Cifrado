@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Lab2_Cifrado.Models.Serie1;
+using Lab2_Cifrado.Models.Serie2;
 
 namespace Lab2_Cifrado.Instancia
 {
@@ -32,5 +33,9 @@ namespace Lab2_Cifrado.Instancia
         public ZigZag ZigZagCif = new ZigZag();
         public Espiral EspiralCif = new Espiral();
         public Cesar CesarCif = new Cesar();
+
+        public SDES SDES_Cif = new SDES();
+        public string RutaPermutaciones = string.Empty;
+        public bool ModificarPermutaciones = false;
     }
 }
