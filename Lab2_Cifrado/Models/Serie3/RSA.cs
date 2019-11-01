@@ -34,6 +34,9 @@ namespace Lab2_Cifrado.Models.Serie3
         {
             P = 0;
             Q = 0;
+
+            GeneradorLlaves = new GenerarLlaves(Data.Instancia.RutaAbsolutaServer);
+
             NombreArchivo = string.Empty;
             RutaAbsolutaArchivo = string.Empty;
             RutaAbsolutaArchivoOperacional = string.Empty;
@@ -93,6 +96,24 @@ namespace Lab2_Cifrado.Models.Serie3
                     var filetxt = new FileStream(pathscif, FileMode.Open, FileAccess.Read);
                     extension = ".txt";
                     return filetxt;
+            }
+
+            return null;
+        }
+
+        public FileStream ArchivoResultanteLlave(string tipoLlave)
+        {
+            switch (tipoLlave)
+            {
+                case "public":
+                    var path = RutaAbsolutaServer + "public.key";
+                    var file = new FileStream(path,FileMode.Open,FileAccess.Read);
+                    return file;
+
+                case "private":
+                    var path2 = RutaAbsolutaServer + "private.key";
+                    var file2 = new FileStream(path2, FileMode.Open, FileAccess.Read);
+                    return file2;
             }
 
             return null;

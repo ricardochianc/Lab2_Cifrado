@@ -125,6 +125,8 @@
     <Compile Include="Controllers\Serie1\ZigZagController.cs" />
     <Compile Include="Controllers\Serie2Controller.cs" />
     <Compile Include="Controllers\Serie2\SDESController.cs" />
+    <Compile Include="Controllers\Serie3Controller.cs" />
+    <Compile Include="Controllers\Serie3\RSAController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -192,6 +194,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\RSA\" />
+    <Folder Include="Views\Serie3\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
