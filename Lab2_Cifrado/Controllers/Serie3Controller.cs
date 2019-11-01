@@ -14,8 +14,10 @@ namespace Lab2_Cifrado.Controllers
         {
             if (Data.Instancia.Errores.Count == 0)
             {
+                Data.Instancia.Errores.Add("P y Q deben de ser mayores a cero y mayores a 16, tampoco pueden ser iguales");
                 Data.Instancia.Errores.Add("El valor de P y Q deben ser números primos");
                 Data.Instancia.Errores.Add("P y Q no son coprimos entre ellos");
+                Data.Instancia.Errores.Add("Ocurrió un error inesperado al generar las llaves");
             }
 
             return View();
@@ -30,10 +32,10 @@ namespace Lab2_Cifrado.Controllers
                 return RedirectToAction("IndexRSA", "RSA"); //mandarlo directamente a cargar archivo
             }
 
-            //if (formCollection["Continuar"] != null)
-            //{
-            //    return RedirectToAction("IndexSDES", "SDES");
-            //}
+            if (formCollection["Continuar"] != null)
+            {
+                return RedirectToAction("IndexRSA", "RSA");
+            }
 
             return null;
         }

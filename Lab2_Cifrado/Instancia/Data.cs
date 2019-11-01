@@ -43,11 +43,13 @@ namespace Lab2_Cifrado.Instancia
         public bool ModificarPermutaciones = false;
 
         //SERIE 3
-        public RSA RSA_Cif{ get; set; }
+        public RSA RSA_Cif = new RSA();
         public bool GenerarLlaves = false;
+        public bool DescargarLlaves = false;
 
         public bool ExisteError = false;
         public List<string> Errores = new List<string>();
         public int Error = 0;
+
     }
 }

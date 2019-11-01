@@ -23,17 +23,46 @@ namespace Lab2_Cifrado.Controllers.Serie3
                 var p = int.Parse(collection["P"]);
                 var q = int.Parse(collection["Q"]);
 
-                if (!Data.Instancia.RSA_Cif.GeneradorLlaves.EsPrimo(p) || !Data.Instancia.RSA_Cif.GeneradorLlaves.EsPrimo(q))
+                if (p > 16 && q > 16)
+                {
+                    if (!Data.Instancia.RSA_Cif.GeneradorLlaves.EsPrimo(p) ||
+                        !Data.Instancia.RSA_Cif.GeneradorLlaves.EsPrimo(q))
+                    {
+                        Data.Instancia.ExisteError = true;
+                        Data.Instancia.Error = 1;
+                    }
+                    else if (Data.Instancia.RSA_Cif.GeneradorLlaves.MCD(p, q) != 1
+                    ) //Se está validando de P y Q sean coprimos
+                    {
+                        Data.Instancia.ExisteError = true;
+                        Data.Instancia.Error = 2;
+                    }
+
+                    if (Data.Instancia.ExisteError != true)
+                    {
+                        var path = Data.Instancia.RutaAbsolutaServer;
+                        Data.Instancia.RSA_Cif.GeneradorLlaves.AsignarRutaRaiz(path);
+
+                        if (Data.Instancia.RSA_Cif.GeneradorLlaves.GenerarClaves(p, q))
+                        {
+                            Data.Instancia.GenerarLlaves = false;
+                            Data.Instancia.DescargarLlaves = true;
+                            Data.Instancia.ExisteError = false;
+                        }
+                        else
+                        {
+                            Data.Instancia.GenerarLlaves = true;
+                            Data.Instancia.DescargarLlaves = false;
+                            Data.Instancia.ExisteError = true;
+                        }
+
+                        
+                    }
+                }
+                else
                 {
                     Data.Instancia.ExisteError = true;
                     Data.Instancia.Error = 0;
-                }
-                
-                //Se está validando de P y Q sean coprimos
-                if (Data.Instancia.RSA_Cif.GeneradorLlaves.MCD(p,q) != 1)
-                {
-                    Data.Instancia.ExisteError = true;
-                    Data.Instancia.Error = 1;
                 }
 
                 return RedirectToAction("IndexRSA");
@@ -71,11 +100,17 @@ namespace Lab2_Cifrado.Controllers.Serie3
                     Data.Instancia.RSA_Cif.Reset();
                     return RedirectToAction("PaginaPrincipalLab", "Home");
                 }
+
+                if (collection["ContinuarRSA"] != null)
+                {
+                    //return RedirectToAction("DescargaLlavePrivada");
+                }
+
             }
-            catch (Exception error)
+            catch
             {
                 Data.Instancia.RSA_Cif.Reset();
-                //return View();
+                return View("IndexRSA");
             }
             return null;
         }
@@ -89,11 +124,13 @@ namespace Lab2_Cifrado.Controllers.Serie3
 
         public FileResult DescargaLlavePublica()
         {
+            Data.Instancia.DescargarLlaves = false;
             return File(Data.Instancia.RSA_Cif.ArchivoResultanteLlave("public"), "*.key", "public.key");
         }
 
         public FileResult DescargaLlavePrivada()
         {
+            Data.Instancia.DescargarLlaves = false;
             return File(Data.Instancia.RSA_Cif.ArchivoResultanteLlave("private"), "*.key", "private.key");
         }
     }

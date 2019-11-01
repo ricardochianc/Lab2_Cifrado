@@ -13,12 +13,12 @@ namespace Lab2_Cifrado.Models.Serie3
     {
         //P y Q mayores que 0, 1 y 2... son los valores más faciles de descartar en vista, las otras validaciones se harán directo en el controlador
         [Display(Name = "Número P")]
-        [Range(17, Int32.MaxValue, ErrorMessage = "P debe ser mayor a 3")]
+        [Range(17, Int32.MaxValue, ErrorMessage = "P debe ser mayor o igual a 17")]
         [Required(ErrorMessage = "Debe ingresar un valor P")]
         public int P { get; set; }
 
         [Display(Name = "Número Q")]
-        [Range(17, Int32.MaxValue, ErrorMessage = "Q debe ser mayor a 3")]
+        [Range(17, Int32.MaxValue, ErrorMessage = "Q debe ser mayor o igual a 17")]
         [Required(ErrorMessage = "Debe ingresar un valor P")]
         public int Q { get; set; }
 
@@ -35,7 +35,7 @@ namespace Lab2_Cifrado.Models.Serie3
             P = 0;
             Q = 0;
 
-            GeneradorLlaves = new GenerarLlaves(Data.Instancia.RutaAbsolutaServer);
+            GeneradorLlaves = new GenerarLlaves();
 
             NombreArchivo = string.Empty;
             RutaAbsolutaArchivo = string.Empty;
@@ -59,21 +59,7 @@ namespace Lab2_Cifrado.Models.Serie3
         {
             try
             {
-                switch (Extension)
-                {
-                    case "txt": //Cifra
-
-                        //CifradoSDES = new CifradoSDES(NombreArchivo, RutaAbsolutaArchivo, RutaAbsolutaServer, Clave, rutaArchivoPermutaciones);
-                        //CifradoSDES.Cifrar();
-                        break;
-
-                    case "rsacif": //Descifra
-
-                        //DescifradoSDES = new DescifradoSDES(NombreArchivo, RutaAbsolutaArchivo, RutaAbsolutaServer, Clave, rutaArchivoPermutaciones);
-                        //DescifradoSDES.Descifrar();
-                        break;
-
-                }
+                //Al hacer la clase en la biblioteca de clases, con método único de cifrado/descifrado mandarlo a llamar acá junto con la ruta del archivo de llave
             }
             catch (Exception e)
             {
@@ -103,6 +89,8 @@ namespace Lab2_Cifrado.Models.Serie3
 
         public FileStream ArchivoResultanteLlave(string tipoLlave)
         {
+            RutaAbsolutaServer = Data.Instancia.RutaAbsolutaServer;
+
             switch (tipoLlave)
             {
                 case "public":

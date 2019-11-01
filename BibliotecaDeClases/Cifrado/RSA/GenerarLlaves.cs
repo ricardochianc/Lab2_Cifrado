@@ -20,9 +20,14 @@ namespace BibliotecaDeClases.Cifrado.RSA
 
         private string RutaAbsolutaServer { get; set; }
 
-        public GenerarLlaves(string rutaServer)
+        public GenerarLlaves()
         {
-            RutaAbsolutaServer = rutaServer;
+            RutaAbsolutaServer = string.Empty;
+        }
+
+        public void AsignarRutaRaiz(string pathRutaServer)
+        {
+            RutaAbsolutaServer = pathRutaServer;
         }
 
         //previamente se va a verificar que sean primos y coprimos entre sí, entonces se asume que ya vienen primos
@@ -43,8 +48,8 @@ namespace BibliotecaDeClases.Cifrado.RSA
 
                 InversoModularD = CalcularInversoModular(Convert.ToInt32(PrimoE), Convert.ToInt32(Phi));
 
-                var LlavePrivada = ModuloN.ToString() + "," + PrimoE.ToString();
-                var LlavePublica = ModuloN.ToString() + "," + InversoModularD.ToString();
+                var LlavePublica = ModuloN.ToString() + "," + PrimoE.ToString();
+                var LlavePrivada = ModuloN.ToString() + "," + InversoModularD.ToString();
 
                 using (var file = new FileStream(RutaAbsolutaServer + "private.key", FileMode.Append))
                 {
@@ -120,14 +125,17 @@ namespace BibliotecaDeClases.Cifrado.RSA
                         //Se verifica si es primo
                         if ((i % j != 0))
                         {
-                            //Phi no puede ser divisible dentro de E (j es nuestro candidato a E) y E debe ser CoPrimo de Phi
-                            if ((Phi % j != 0) && (MCD(Convert.ToInt32(Phi), j) == 1))
+                            if (i == j + 1)
                             {
-                                listadoPosibles.Add(i);
-                                
-                                if (listadoPosibles.Count == 10)
+                                //Phi no puede ser divisible dentro de E (j es nuestro candidato a E) y E debe ser CoPrimo de Phi
+                                if ((Phi % i != 0) && (MCD(Convert.ToInt32(Phi), i) == 1))
                                 {
-                                    i = Convert.ToInt32(Phi);
+                                    listadoPosibles.Add(i);
+
+                                    if (listadoPosibles.Count == 10)
+                                    {
+                                        i = Convert.ToInt32(Phi);
+                                    }
                                 }
                             }
                         }

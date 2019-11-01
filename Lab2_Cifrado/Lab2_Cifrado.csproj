@@ -191,11 +191,14 @@
     <Content Include="Views\SDES\_CargarArchivoSDES.cshtml" />
     <Content Include="Views\SDES\_OperarSDES.cshtml" />
     <Content Include="Views\SDES\_ResultadoSDES.cshtml" />
+    <Content Include="Views\Serie3\SeleccionarOpcionSerie3.cshtml" />
+    <Content Include="Views\RSA\IndexRSA.cshtml" />
+    <Content Include="Views\RSA\_GenerarLlaves.cshtml" />
+    <Content Include="Views\RSA\_DescargaLlaves.cshtml" />
+    <Content Include="Views\RSA\_Errores.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\RSA\" />
-    <Folder Include="Views\Serie3\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
