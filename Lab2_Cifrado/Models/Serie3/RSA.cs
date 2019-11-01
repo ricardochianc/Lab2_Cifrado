@@ -13,12 +13,12 @@ namespace Lab2_Cifrado.Models.Serie3
     {
         //P y Q mayores que 0, 1 y 2... son los valores más faciles de descartar en vista, las otras validaciones se harán directo en el controlador
         [Display(Name = "Número P")]
-        [Range(3, Int32.MaxValue, ErrorMessage = "P debe ser mayor a 3")]
+        [Range(17, Int32.MaxValue, ErrorMessage = "P debe ser mayor a 3")]
         [Required(ErrorMessage = "Debe ingresar un valor P")]
         public int P { get; set; }
 
         [Display(Name = "Número Q")]
-        [Range(3, Int32.MaxValue, ErrorMessage = "Q debe ser mayor a 3")]
+        [Range(17, Int32.MaxValue, ErrorMessage = "Q debe ser mayor a 3")]
         [Required(ErrorMessage = "Debe ingresar un valor P")]
         public int Q { get; set; }
 
@@ -28,7 +28,7 @@ namespace Lab2_Cifrado.Models.Serie3
         private string RutaAbsolutaServer { get; set; }
         private string Extension { get; set; }
 
-        private GenerarLlaves GeneradorLlaves { get; set; }
+        public GenerarLlaves GeneradorLlaves { get; set; }
 
         public RSA()
         {

@@ -45,5 +45,9 @@ namespace Lab2_Cifrado.Instancia
         //SERIE 3
         public RSA RSA_Cif{ get; set; }
         public bool GenerarLlaves = false;
+
+        public bool ExisteError = false;
+        public List<string> Errores = new List<string>();
+        public int Error = 0;
     }
 }
