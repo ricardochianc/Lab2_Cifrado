@@ -80,8 +80,7 @@ namespace Lab2_Cifrado.Controllers.Serie3
                 return View("IndexRSA");
             }
         }
-
-
+        
         //PARA DESCARGAR ALGUN ARCHIVO, YA SEA DE LLAVES O RESULTANTE
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult ResultadoRSA(FormCollection collection)
