@@ -74,7 +74,7 @@ namespace BibliotecaDeClases.Cifrado.RSA
 
 
         //Métodos privados que sirven para verificar los números primos, máximo común divisor y generar e
-        private bool EsPrimo(int numero)
+        public bool EsPrimo(int numero)
         {
             for (int i = 2; i <= Math.Sqrt(numero); i++)
             {
@@ -87,7 +87,7 @@ namespace BibliotecaDeClases.Cifrado.RSA
             return true;
         }
 
-        private int MCD(int numero1, int numero2)
+        public int MCD(int numero1, int numero2)
         {
             if (numero1 < numero2)
             {

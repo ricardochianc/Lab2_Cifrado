@@ -133,6 +133,7 @@
     <Compile Include="Models\Serie1\Espiral.cs" />
     <Compile Include="Models\Serie1\ZigZag.cs" />
     <Compile Include="Models\Serie2\SDES.cs" />
+    <Compile Include="Models\Serie3\RSA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
