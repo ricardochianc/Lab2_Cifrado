@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,18 +30,44 @@ namespace BibliotecaDeClases.Cifrado.RSA
         {
             var correcto = false;
 
-            PrimoP = numeroP;
-            PrimoQ = numeroQ;
+            try
+            {
+                PrimoP = numeroP;
+                PrimoQ = numeroQ;
 
-            ModuloN = PrimoP * PrimoQ; //n = p*q
+                ModuloN = PrimoP * PrimoQ; //n = p*q
 
-            Phi = (PrimoP - 1) * (PrimoQ - 1); //phi = (p-1)(q-1)
+                Phi = (PrimoP - 1) * (PrimoQ - 1); //phi = (p-1)(q-1)
 
-            PrimoE = GenerarE();
+                PrimoE = GenerarE();
 
-            //InversoModularD = GenerarInversoD();
+                InversoModularD = CalcularInversoModular(Convert.ToInt32(PrimoE), Convert.ToInt32(Phi));
 
-            //Escribir archivos
+                var LlavePrivada = ModuloN.ToString() + "," + PrimoE.ToString();
+                var LlavePublica = ModuloN.ToString() + "," + InversoModularD.ToString();
+
+                using (var file = new FileStream(RutaAbsolutaServer + "private.key", FileMode.Append))
+                {
+                    using (var writer = new StreamWriter(file, Encoding.UTF8))
+                    {
+                        writer.Write(LlavePrivada);
+                    }
+                }
+
+                using (var file = new FileStream(RutaAbsolutaServer + "public.key", FileMode.Append))
+                {
+                    using (var writer = new StreamWriter(file, Encoding.UTF8))
+                    {
+                        writer.Write(LlavePublica);
+                    }
+                }
+
+                correcto = true;
+            }
+            catch (Exception)
+            {
+                correcto = false;
+            }
 
             return correcto;
         }
@@ -118,6 +145,24 @@ namespace BibliotecaDeClases.Cifrado.RSA
             numeroE = listadoPosibles[randomPosicion.Next(0, listadoPosibles.Count - 1)];
 
             return numeroE;
+        }
+
+        private int CalcularInversoModular(int numeroE, int phi)
+        {
+            var resultado = 0;
+
+            for (int i = 1; i <= phi; i++)
+            {
+                resultado = (i * numeroE) % phi;
+
+                if (resultado == 1)
+                {
+                    resultado = i;
+                    i = phi +1;
+                }
+            }
+
+            return resultado;
         }
     }
 }
