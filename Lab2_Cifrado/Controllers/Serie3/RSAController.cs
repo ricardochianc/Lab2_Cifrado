@@ -12,6 +12,13 @@ namespace Lab2_Cifrado.Controllers.Serie3
         // GET: RSA
         public ActionResult IndexRSA()
         {
+            //Verifica si es necesario borrar los archivos de llaves del servidor
+            if (Data.Instancia.DescargarLlaves == false && System.IO.File.Exists(Data.Instancia.RutaAbsolutaServer + "private.key") && System.IO.File.Exists(Data.Instancia.RutaAbsolutaServer + "public.key"))
+            {
+                System.IO.File.Delete(Data.Instancia.RutaAbsolutaServer + "private.key");
+                System.IO.File.Delete(Data.Instancia.RutaAbsolutaServer + "public.key");
+            }
+
             return View();
         }
 
@@ -103,7 +110,7 @@ namespace Lab2_Cifrado.Controllers.Serie3
 
                 if (collection["ContinuarRSA"] != null)
                 {
-                    //return RedirectToAction("DescargaLlavePrivada");
+                    return RedirectToAction("IndexRSA");
                 }
 
             }
