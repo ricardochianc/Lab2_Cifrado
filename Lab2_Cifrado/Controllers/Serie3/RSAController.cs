@@ -17,6 +17,7 @@ namespace Lab2_Cifrado.Controllers.Serie3
             {
                 System.IO.File.Delete(Data.Instancia.RutaAbsolutaServer + "private.key");
                 System.IO.File.Delete(Data.Instancia.RutaAbsolutaServer + "public.key");
+                Data.Instancia.ExisteError = false; //Se niega para que la vista no muestre la ventana emergente de errores
             }
 
             return View();
