@@ -46,6 +46,8 @@ namespace Lab2_Cifrado.Instancia
         public RSA RSA_Cif = new RSA();
         public bool GenerarLlaves = false;
         public bool DescargarLlaves = false;
+        public bool SeCargoArchivoLlave = false;
+        public bool SeOperoRSA = false;
 
         public bool ExisteError = false;
         public List<string> Errores = new List<string>();

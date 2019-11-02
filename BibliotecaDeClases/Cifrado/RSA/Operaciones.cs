@@ -7,7 +7,7 @@ using System.IO;
 
 namespace BibliotecaDeClases.Cifrado.RSA
 {
-	class Operaciones
+	public class Operaciones
 	{
 
 		private string NombreArchivo { get; set; }

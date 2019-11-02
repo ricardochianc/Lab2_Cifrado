@@ -29,6 +29,7 @@ namespace Lab2_Cifrado.Models.Serie3
         private string Extension { get; set; }
 
         public GenerarLlaves GeneradorLlaves { get; set; }
+        public Operaciones OperadorRSA { get; set; }
 
         public RSA()
         {
@@ -55,11 +56,13 @@ namespace Lab2_Cifrado.Models.Serie3
             RutaAbsolutaServer = rutaAbsServer;
         }
 
-        public void Operar(string rutaArchivoOperacional)
+        public void Operar()
         {
             try
             {
-                //Al hacer la clase en la biblioteca de clases, con método único de cifrado/descifrado mandarlo a llamar acá junto con la ruta del archivo de llave
+                Operaciones OperardorRSA = new Operaciones(NombreArchivo, RutaAbsolutaArchivo, RutaAbsolutaServer, RutaAbsolutaArchivoOperacional);
+                OperardorRSA.OperarRSA(Extension);
+                Data.Instancia.SeOperoRSA = true;
             }
             catch (Exception e)
             {
@@ -111,19 +114,28 @@ namespace Lab2_Cifrado.Models.Serie3
         {
             switch (Extension)
             {
-                case "scif":
+                case "rsacif":
                     File.Delete(RutaAbsolutaServer + NombreArchivo + ".txt");
-                    //DescifradoSDES = new DescifradoSDES("", "", "", 0, "");
                     break;
 
                 case "txt":
                     File.Delete(RutaAbsolutaServer + NombreArchivo + ".rsacif");
-                    //CifradoSDES = new CifradoSDES("", "", "", 0, "");
                     break;
             }
 
             Data.Instancia.ArchivoCargado = false;
             Data.Instancia.EleccionOperacion = false;
+            Data.Instancia.GenerarLlaves = false;
+            Data.Instancia.DescargarLlaves = false;
+            Data.Instancia.ExisteError = false;
+            Data.Instancia.SeCargoArchivoLlave = false;
+            Data.Instancia.SeOperoRSA = false;
         }
+
+        public void AsignarRutaLlaves(string rutaArchivoOperacional)
+        {
+            RutaAbsolutaArchivoOperacional = rutaArchivoOperacional;
+        }
+
     }
 }
