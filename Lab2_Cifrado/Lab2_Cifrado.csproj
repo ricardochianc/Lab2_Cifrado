@@ -196,6 +196,9 @@
     <Content Include="Views\RSA\_GenerarLlaves.cshtml" />
     <Content Include="Views\RSA\_DescargaLlaves.cshtml" />
     <Content Include="Views\RSA\_Errores.cshtml" />
+    <Content Include="Views\RSA\_CargarArchivoRSA.cshtml" />
+    <Content Include="Views\RSA\_CargarArchivoLlave.cshtml" />
+    <Content Include="Views\RSA\_ResultadoRSA.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

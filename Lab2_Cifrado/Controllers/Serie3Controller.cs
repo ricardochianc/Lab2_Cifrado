@@ -34,6 +34,7 @@ namespace Lab2_Cifrado.Controllers
 
             if (formCollection["Continuar"] != null)
             {
+                Data.Instancia.SeCargoArchivoLlave = true;
                 return RedirectToAction("IndexRSA", "RSA");
             }
 

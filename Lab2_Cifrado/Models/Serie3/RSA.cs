@@ -77,7 +77,7 @@ namespace Lab2_Cifrado.Models.Serie3
                 case "txt": //Devuelve uno cifrado
                     var pathtxt = RutaAbsolutaServer + NombreArchivo + ".rsacif";
                     var filescif = new FileStream(pathtxt, FileMode.Open, FileAccess.Read);
-                    extension = ".scif";
+                    extension = ".rsacif";
                     return filescif;
 
                 case "rsacif": //Devulve uno descifrado

@@ -14,7 +14,6 @@
     @Html.Partial("_Errores")
 }
 
-
 @if (Data.Instancia.GenerarLlaves)
 {
     @Html.Partial("_GenerarLlaves")
@@ -25,17 +24,22 @@
     @Html.Partial("_DescargaLlaves")
 }
 
-@if (Data.Instancia.ArchivoCargado == false && Data.Instancia.GenerarLlaves == false && Data.Instancia.DescargarLlaves == false)
+@if (Data.Instancia.ArchivoCargado == false && Data.Instancia.SeCargoArchivoLlave && Data.Instancia.SeOperoRSA == false && Data.Instancia.GenerarLlaves == false && !Data.Instancia.DescargarLlaves)
 {
     @Html.Partial("_CargarArchivoRSA")
 }
 
-@if (Data.Instancia.ArchivoCargado && Data.Instancia.EleccionOperacion == false)
+@if (Data.Instancia.SeCargoArchivoLlave == false && Data.Instancia.ArchivoCargado)
 {
-    @Html.Partial("_OperarRSA")
+    @Html.Partial("_CargarArchivoLlave")
 }
 
-@if (Data.Instancia.ArchivoCargado && Data.Instancia.EleccionOperacion)
+@*@if (Data.Instancia.SeOperoRSA == false)
+{
+    @Html.Partial("_OperarRSA")
+}*@
+
+@if (Data.Instancia.ArchivoCargado && Data.Instancia.SeOperoRSA)
 {
     @Html.Partial("_ResultadoRSA")
 }

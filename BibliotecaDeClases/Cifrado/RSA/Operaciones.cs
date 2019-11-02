@@ -94,9 +94,9 @@ namespace BibliotecaDeClases.Cifrado.RSA
 			File.Delete(RutaAbsolutaArchivo);
 		}
 
-		private decimal Potencia(int numBase, int exponente)
+		private double Potencia(int numBase, int exponente)
 		{
-			decimal respuesta = 1;
+			double respuesta = 1;
 
 			for (int i = 0; i < exponente; i++)
 			{
