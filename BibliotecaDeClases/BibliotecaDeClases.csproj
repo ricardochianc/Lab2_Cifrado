@@ -46,6 +46,7 @@
     <Compile Include="Cifrado\Espiral\Cifrado.cs" />
     <Compile Include="Cifrado\Espiral\Descifrado.cs" />
     <Compile Include="Cifrado\RSA\GenerarLlaves.cs" />
+    <Compile Include="Cifrado\RSA\Operaciones.cs" />
     <Compile Include="Cifrado\S-DES\CifradoSDES.cs" />
     <Compile Include="Cifrado\S-DES\DescifradoSDES.cs" />
     <Compile Include="Cifrado\S-DES\SDES_Base.cs" />

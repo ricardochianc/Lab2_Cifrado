@@ -132,7 +132,7 @@ namespace BibliotecaDeClases.Cifrado.RSA
                                 {
                                     listadoPosibles.Add(i);
 
-                                    if (listadoPosibles.Count == 10)
+                                    if (listadoPosibles.Count == 3)
                                     {
                                         i = Convert.ToInt32(Phi);
                                     }
