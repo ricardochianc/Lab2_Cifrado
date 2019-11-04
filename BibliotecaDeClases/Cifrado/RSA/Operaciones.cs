@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Numerics;
 
 namespace BibliotecaDeClases.Cifrado.RSA
 {
@@ -17,8 +18,8 @@ namespace BibliotecaDeClases.Cifrado.RSA
 		public string RutaArchivoLlave { get; set; }
 
 		//Esto se leerá en el archivo *.key que ingrese el usario, independientemente de qué llave ingrese
-		private int Modulo { get; set; }
-		private int Llave { get; set; }
+		private BigInteger Modulo { get; set; }
+		private BigInteger Llave { get; set; }
 
 		private const int LargoBuffer = 100;
 
@@ -39,8 +40,8 @@ namespace BibliotecaDeClases.Cifrado.RSA
 				{
 					//Campos linea va a leer la linea y de una vez separarlos
 					var camposLinea = reader.ReadLine().Split(',');
-					Modulo = int.Parse(camposLinea[0]);
-					Llave = int.Parse(camposLinea[1]);
+					Modulo = BigInteger.Parse(camposLinea[0]);
+					Llave = BigInteger.Parse(camposLinea[1]);
 				}
 			}
 
@@ -60,29 +61,30 @@ namespace BibliotecaDeClases.Cifrado.RSA
 			
 			LeerLlave();
 
-			var buffer = new byte[LargoBuffer];
+			var buffer = new char[LargoBuffer];
 			var bufferEscritura = new char[LargoBuffer];
 
 			using (var file = new FileStream(RutaAbsolutaArchivo, FileMode.Open))
 			{
-				using (var reader = new BinaryReader(file, Encoding.UTF8))
+				using (var reader = new StreamReader(file, Encoding.UTF8))
 				{
 					while (reader.BaseStream.Position != reader.BaseStream.Length)
 					{
-						buffer = reader.ReadBytes(LargoBuffer);
+						reader.Read(buffer,0,LargoBuffer);
 
 						var contBuffer = 0;
 
 						foreach (var caracter in buffer)
-						{
+                        {
+                            //Recordando de N = C^d mod n && C = N^e mod n
+                            var caracterByte = (int) caracter;
+                            var caracterCifrado = BigInteger.ModPow(caracterByte, Llave, Modulo);
 
-							//Recordando de N = C^d mod n && C = N^e mod n
+                            //var potencia = Potencia(Convert.ToInt32(caracter), Convert.ToInt32(Llave));
 
-							var potencia = Potencia(Convert.ToInt32(caracter), Convert.ToInt32(Llave));
+							//var Caractercifrado = potencia % Modulo;
 
-							var Caractercifrado = potencia % Modulo;
-
-							bufferEscritura[contBuffer] = (char)Caractercifrado;
+							bufferEscritura[contBuffer] = (char)caracterCifrado;
 							contBuffer++;
 						}
 						EscribirBuffer(bufferEscritura);
@@ -110,7 +112,7 @@ namespace BibliotecaDeClases.Cifrado.RSA
 		{
 			using (var file = new FileStream(RutaAbsolutaArchivoRSACif, FileMode.Append))
 			{
-				using (var writer = new BinaryWriter(file, Encoding.UTF8))
+				using (var writer = new StreamWriter(file, Encoding.UTF8))
 				{
 					writer.Write(buffer);
 				}

@@ -69,9 +69,9 @@ namespace BibliotecaDeClases.Cifrado.RSA
 
                 correcto = true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                correcto = false;
+                throw new Exception(e.Message);
             }
 
             return correcto;
@@ -132,7 +132,7 @@ namespace BibliotecaDeClases.Cifrado.RSA
                                 {
                                     listadoPosibles.Add(i);
 
-                                    if (listadoPosibles.Count == 3)
+                                    if (listadoPosibles.Count == 50)
                                     {
                                         i = Convert.ToInt32(Phi);
                                     }
@@ -149,8 +149,23 @@ namespace BibliotecaDeClases.Cifrado.RSA
                 }
             }
 
+            var listadoSecundario = new List<int>();
+
+            foreach (var primoE in listadoPosibles)
+            {
+                if (primoE < 55 && CalcularInversoModular(primoE, (int)Phi) < 55)
+                {
+                    listadoSecundario.Add(primoE);
+                }
+            }
+
+            if (listadoSecundario.Count == 0)
+            {
+                throw new Exception("Inverso modular");
+            }
+
             var randomPosicion = new Random();
-            numeroE = listadoPosibles[randomPosicion.Next(0, listadoPosibles.Count - 1)];
+            numeroE = listadoSecundario[randomPosicion.Next(listadoSecundario.Count)];
 
             return numeroE;
         }

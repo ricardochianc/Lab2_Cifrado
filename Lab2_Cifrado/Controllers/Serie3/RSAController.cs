@@ -32,9 +32,11 @@ namespace Lab2_Cifrado.Controllers.Serie3
 				var p = int.Parse(collection["P"]);
 				var q = int.Parse(collection["Q"]);
 
-				if (p > 6 && q > 6)
+				if (p > 16 && q > 16)
 				{
-					if (!Data.Instancia.RSA_Cif.GeneradorLlaves.EsPrimo(p) ||
+                    Data.Instancia.ExisteError = false;
+
+                    if (!Data.Instancia.RSA_Cif.GeneradorLlaves.EsPrimo(p) ||
 						!Data.Instancia.RSA_Cif.GeneradorLlaves.EsPrimo(q))
 					{
 						Data.Instancia.ExisteError = true;
@@ -77,8 +79,14 @@ namespace Lab2_Cifrado.Controllers.Serie3
 
 				return RedirectToAction("IndexRSA");
 			}
-			catch
+			catch(Exception exception)
 			{
+                Data.Instancia.ExisteError = true;
+
+                if (exception.Message == "Inverso modular")
+                {
+                    Data.Instancia.Error = 4;
+                }
 				return View("IndexRSA");
 			}
 		}
@@ -195,7 +203,7 @@ namespace Lab2_Cifrado.Controllers.Serie3
 
 				return RedirectToAction("IndexRSA");
 			}
-			catch
+			catch(Exception e)
 			{
 				return RedirectToAction("IndexRSA");
 			}

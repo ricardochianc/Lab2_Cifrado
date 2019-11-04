@@ -18,6 +18,7 @@ namespace Lab2_Cifrado.Controllers
                 Data.Instancia.Errores.Add("El valor de P y Q deben ser números primos");
                 Data.Instancia.Errores.Add("P y Q no son coprimos entre ellos");
                 Data.Instancia.Errores.Add("Ocurrió un error inesperado al generar las llaves");
+                Data.Instancia.Errores.Add("P y Q no tienen inverso multiplicativo modular, intente con otro par de números primos");
             }
 
             return View();
