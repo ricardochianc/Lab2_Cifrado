@@ -155,6 +155,8 @@ namespace BibliotecaDeClases.Cifrado.S_DES
                         }
                         //Manda a escribir al archivo el buffer
                         EscribirBuffer(bufferEscritura);
+                        buffer = new byte[LargoBuffer];
+                        bufferEscritura = new byte[LargoBuffer];
                     }
                 }
             }
