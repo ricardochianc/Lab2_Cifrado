@@ -58,7 +58,7 @@ namespace Lab2_Cifrado.Controllers.Serie1
                 
                 return RedirectToAction("IndexEspiral");
             }
-            catch
+            catch (Exception e)
             {
                 return View("IndexEspiral");
             }

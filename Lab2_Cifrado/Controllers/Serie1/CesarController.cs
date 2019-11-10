@@ -56,7 +56,7 @@ namespace Lab2_Cifrado.Controllers.Serie1
                 
                 return RedirectToAction("IndexCesar");
             }
-            catch
+            catch (Exception e)
             {
                 return View("IndexCesar");
             }
