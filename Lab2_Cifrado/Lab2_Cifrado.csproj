@@ -125,6 +125,8 @@
     <Compile Include="Controllers\Serie1\ZigZagController.cs" />
     <Compile Include="Controllers\Serie2Controller.cs" />
     <Compile Include="Controllers\Serie2\SDESController.cs" />
+    <Compile Include="Controllers\Serie3Controller.cs" />
+    <Compile Include="Controllers\Serie3\RSAController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -133,6 +135,7 @@
     <Compile Include="Models\Serie1\Espiral.cs" />
     <Compile Include="Models\Serie1\ZigZag.cs" />
     <Compile Include="Models\Serie2\SDES.cs" />
+    <Compile Include="Models\Serie3\RSA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +191,14 @@
     <Content Include="Views\SDES\_CargarArchivoSDES.cshtml" />
     <Content Include="Views\SDES\_OperarSDES.cshtml" />
     <Content Include="Views\SDES\_ResultadoSDES.cshtml" />
+    <Content Include="Views\Serie3\SeleccionarOpcionSerie3.cshtml" />
+    <Content Include="Views\RSA\IndexRSA.cshtml" />
+    <Content Include="Views\RSA\_GenerarLlaves.cshtml" />
+    <Content Include="Views\RSA\_DescargaLlaves.cshtml" />
+    <Content Include="Views\RSA\_Errores.cshtml" />
+    <Content Include="Views\RSA\_CargarArchivoRSA.cshtml" />
+    <Content Include="Views\RSA\_CargarArchivoLlave.cshtml" />
+    <Content Include="Views\RSA\_ResultadoRSA.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

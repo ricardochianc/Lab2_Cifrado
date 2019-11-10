@@ -1,0 +1,14 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">4. Carga de llave para operar RSA</h3>
+    </div>
+    <div class="panel-body">
+
+        @using (Html.BeginForm("CargarArchivoLlave", "RSA", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" class="form-control-file" name="postedFile" aria-describedby="fileHelp">
+            <br />
+            <button type="submit" class="btn btn-info">Cargar</button>
+        }
+    </div>
+</div>

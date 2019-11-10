@@ -1,0 +1,45 @@
+﻿@using Lab2_Cifrado.Instancia
+@model Lab2_Cifrado.Models.Serie3.RSA
+
+@{
+    ViewBag.Title = "RSA |";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2>RSA</h2>
+
+@if (Data.Instancia.ExisteError)
+{
+    @Html.Partial("_Errores")
+}
+
+@if (Data.Instancia.GenerarLlaves)
+{
+    @Html.Partial("_GenerarLlaves")
+}
+
+@if (Data.Instancia.GenerarLlaves == false && Data.Instancia.DescargarLlaves)
+{
+    @Html.Partial("_DescargaLlaves")
+}
+
+@if (Data.Instancia.ArchivoCargado == false && Data.Instancia.SeCargoArchivoLlave && Data.Instancia.SeOperoRSA == false && Data.Instancia.GenerarLlaves == false && !Data.Instancia.DescargarLlaves)
+{
+    @Html.Partial("_CargarArchivoRSA")
+}
+
+@if (Data.Instancia.SeCargoArchivoLlave == false && Data.Instancia.ArchivoCargado)
+{
+    @Html.Partial("_CargarArchivoLlave")
+}
+
+@*@if (Data.Instancia.SeOperoRSA == false)
+{
+    @Html.Partial("_OperarRSA")
+}*@
+
+@if (Data.Instancia.ArchivoCargado && Data.Instancia.SeOperoRSA)
+{
+    @Html.Partial("_ResultadoRSA")
+}

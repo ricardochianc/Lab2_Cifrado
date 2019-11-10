@@ -44,7 +44,7 @@ namespace Lab2_Cifrado.Controllers
 
             if (formCollection["Serie3"] != null)
             {
-                return RedirectToAction("PaginaPrincipalLab");
+                return RedirectToAction("SeleccionarOpcionSerie3","Serie3");
             }
             return null;
         }

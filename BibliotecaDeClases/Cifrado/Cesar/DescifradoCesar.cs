@@ -17,8 +17,9 @@ namespace BibliotecaDeClases.Cifrado.Cesar
         public int posBufferEscritura { get; set; }
 
         const int largoBuffer = 100;
-        private char[] bufferEscritura = new char[largoBuffer];
-        private char[] bufferLectura = new char[largoBuffer];
+        private byte[] bufferEscritura = new byte[largoBuffer];
+        //private char[] bufferLectura = new char[largoBuffer];
+        private byte[] buffLect = new byte[largoBuffer];
 
         public DescifradoCesar(string clave, string nombreArchivo, string rutaAbsoluta, string rutaServer)
         {
@@ -85,25 +86,30 @@ namespace BibliotecaDeClases.Cifrado.Cesar
                 {
                     while(reader.BaseStream.Position != reader.BaseStream.Length)
                     {
-                        bufferLectura = reader.ReadChars(largoBuffer);
+                        //bufferLectura = new char[largoBuffer];
+                        bufferEscritura = new byte[largoBuffer];
+
+                        //bufferLectura = reader.ReadChars(largoBuffer);
+                        buffLect = reader.ReadBytes(largoBuffer);
+
                         posBufferEscritura = 0;
 
-                        for (int i = 0; i < bufferLectura.Length; i++)
+                        for (int i = 0; i < buffLect.Length; i++)
                         {
                             for (int j = 0; j < alfabeto.Length; j++)
                             {
-                                if (alfCifrado.Contains(bufferLectura[i]))
+                                if (alfCifrado.Contains((char)buffLect[i]))
                                 {
-                                    if(bufferLectura[i] == alfCifrado[j])
+                                    if((char)buffLect[i] == alfCifrado[j])
                                     {
-                                        bufferEscritura[posBufferEscritura] += alfabeto[j];
+                                        bufferEscritura[posBufferEscritura] += (byte)alfabeto[j];
                                         posBufferEscritura++;
                                         j = alfabeto.Length;
                                     }
                                 }
                                 else
                                 {
-                                    bufferEscritura[posBufferEscritura] += bufferLectura[i];
+                                    bufferEscritura[posBufferEscritura] += (byte)buffLect[i];
                                     posBufferEscritura++;
                                     j = alfabeto.Length;
                                 }
@@ -121,18 +127,19 @@ namespace BibliotecaDeClases.Cifrado.Cesar
         {
             using(var file = new FileStream(RutaAbsolutaServer + NombreArchivo + ".txt", FileMode.Append))
             {
-                using(var writer = new StreamWriter(file, Encoding.UTF8))
+                using(var writer = new BinaryWriter(file, Encoding.UTF8))
                 {
                     for (int i = 0; i < posBufferEscritura; i++)
                     {
-                        if(bufferEscritura[i] == '\n')
-                        {
-                            writer.Write(Environment.NewLine);
-                        }
-                        else
-                        {
-                            writer.Write(bufferEscritura[i]);
-                        }                        
+                        //if(bufferEscritura[i] == '\n')
+                        //{
+                        //    writer.Write(Environment.NewLine);
+                        //}
+                        //else
+                        //{
+                            
+                        //}
+                        writer.Write(bufferEscritura[i]);
                     }
                 }
             }

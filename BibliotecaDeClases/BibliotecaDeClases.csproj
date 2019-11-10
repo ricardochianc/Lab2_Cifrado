@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,6 +46,8 @@
     <Compile Include="Cifrado\Cesar\DescifradoCesar.cs" />
     <Compile Include="Cifrado\Espiral\Cifrado.cs" />
     <Compile Include="Cifrado\Espiral\Descifrado.cs" />
+    <Compile Include="Cifrado\RSA\GenerarLlaves.cs" />
+    <Compile Include="Cifrado\RSA\Operaciones.cs" />
     <Compile Include="Cifrado\S-DES\CifradoSDES.cs" />
     <Compile Include="Cifrado\S-DES\DescifradoSDES.cs" />
     <Compile Include="Cifrado\S-DES\SDES_Base.cs" />
@@ -52,6 +55,8 @@
     <Compile Include="Cifrado\ZigZag\ZigZagDescifrado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

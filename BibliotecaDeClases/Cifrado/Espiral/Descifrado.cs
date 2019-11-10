@@ -17,8 +17,8 @@ namespace BibliotecaDeClases.Cifrado.Espiral
         public int posBufferEscritura { get; set; }
 
         const int largoBuffer = 100;
-        private char[] bufferEscritura = new char[largoBuffer];
-        private char[] bufferLectura = new char[largoBuffer];
+        private byte[] bufferEscritura = new byte[largoBuffer];
+        private byte[] bufferLectura = new byte[largoBuffer];
 
         char[,] matriz;
 
@@ -51,18 +51,19 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                 {
                     while(reader.BaseStream.Position != reader.BaseStream.Length)
                     {  
-                        bufferLectura = new char[largoBuffer];
-                        bufferEscritura = new char[largoBuffer];
+                        bufferLectura = new byte[largoBuffer];
+                        bufferEscritura = new byte[largoBuffer];
 
-                        bufferLectura = reader.ReadChars(largoBuffer);
+                        bufferLectura = reader.ReadBytes(largoBuffer);
                         matriz = new char[CalculoColumnas(Clave, largoBuffer), Clave];
                         
                         area = matriz.GetLength(0) * matriz.GetLength(1);
 
                         sigValorColumna = matriz.GetLength(0);
                         sigValorFila = matriz.GetLength(1);
-                        pos = 0;
+                        
                         posBufferEscritura = 0;                        
+                        pos = 0;
 
                         switch (DireccionRecorrido)
                         {
@@ -82,18 +83,18 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                         {
                                             if(pos < bufferLectura.Length)
                                             {
-                                                if(bufferLectura[pos] != 65279)
-                                                {
-                                                    matriz[xarab,j] = bufferLectura[pos];
-                                                    pos++;
+                                                //if(bufferLectura[pos] != 65279)
+                                                //{
+                                                //    matriz[xarab,j] = bufferLectura[pos];
+                                                //    pos++;
+                                                //    carsEnMatriz++;
+                                                //}
+                                                //else
+                                                //{
+                                                    matriz[xarab,j] = (char)bufferLectura[pos];
+                                                    pos ++;
                                                     carsEnMatriz++;
-                                                }
-                                                else
-                                                {
-                                                    matriz[xarab,j] = bufferLectura[pos + 1];
-                                                    pos += 2;
-                                                    carsEnMatriz++;
-                                                }                                                
+                                                //}                                                
                                             }                                
                                         }
 
@@ -107,7 +108,7 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                         {
                                             if(pos < bufferLectura.Length)
                                             {
-                                                matriz[i,yizder] = bufferLectura[pos];
+                                                matriz[i,yizder] = (char)bufferLectura[pos];
                                                 pos++;
                                                 carsEnMatriz++;
                                             }                                
@@ -123,7 +124,7 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                         {
                                             if(pos < bufferLectura.Length)
                                             {
-                                                matriz[xabar,j] = bufferLectura[pos];
+                                                matriz[xabar,j] = (char)bufferLectura[pos];
                                                 pos++;
                                                 carsEnMatriz++;
                                             }                                
@@ -140,7 +141,7 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                         {
                                             if(pos < bufferLectura.Length)
                                             {
-                                                matriz[i,yderiz] = bufferLectura[pos];
+                                                matriz[i,yderiz] = (char)bufferLectura[pos];
                                                 pos++;
                                                 carsEnMatriz++;
                                             }                                
@@ -168,18 +169,18 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                         {
                                             if(pos < bufferLectura.Length)
                                             {
-                                                if(bufferLectura[pos] != 65279)
-                                                {
-                                                    matriz[i,yizder] = bufferLectura[pos];
+                                                //if(bufferLectura[pos] != 65279)
+                                                //{
+                                                //    matriz[i,yizder] = bufferLectura[pos];
+                                                //    pos++;
+                                                //    carsEnMatriz++;
+                                                //}
+                                                //else
+                                                //{
+                                                    matriz[i,yizder] = (char)bufferLectura[pos];
                                                     pos++;
                                                     carsEnMatriz++;
-                                                }
-                                                else
-                                                {
-                                                    matriz[i,yizder] = bufferLectura[pos + 1];
-                                                    pos += 2;
-                                                    carsEnMatriz++;
-                                                }                                                
+                                                //}                                                
                                             }                                
                                         }
 
@@ -193,7 +194,7 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                         {
                                             if(pos < bufferLectura.Length)
                                             {
-                                                matriz[xarab,j] = bufferLectura[pos];
+                                                matriz[xarab,j] = (char)bufferLectura[pos];
                                                 pos++;
                                                 carsEnMatriz++;
                                             }                                
@@ -210,7 +211,7 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                         {
                                             if(pos < bufferLectura.Length)
                                             {
-                                                matriz[i,yderiz] = bufferLectura[pos];
+                                                matriz[i,yderiz] = (char)bufferLectura[pos];
                                                 pos++;
                                                 carsEnMatriz++;
                                             }                                
@@ -227,7 +228,7 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                                         {
                                             if(pos < bufferLectura.Length)
                                             {
-                                                matriz[xabar,j] = bufferLectura[pos];
+                                                matriz[xabar,j] = (char)bufferLectura[pos];
                                                 pos++;
                                                 carsEnMatriz++;
                                             }                                
@@ -260,7 +261,17 @@ namespace BibliotecaDeClases.Cifrado.Espiral
                         {
                             for (int j = 0; j < matriz.GetLength(1); j++)
                             {
-                                bufferEscritura[posBufferEscritura] = matriz[i,j];
+                                if(posBufferEscritura >= largoBuffer)
+                                {
+                                    EscribirBuffer();
+                                    posBufferEscritura = 0;
+                                }
+
+                                //if(posBufferEscritura < largoBuffer)
+                                //{
+                                    
+                                //}
+                                bufferEscritura[posBufferEscritura] = (byte)matriz[i,j];
                                 posBufferEscritura++;
                             }
                         }
@@ -278,22 +289,26 @@ namespace BibliotecaDeClases.Cifrado.Espiral
         {
             using(var file = new FileStream(RutaAbsolutaServer + NombreArchivo + ".txt", FileMode.Append))
             {
-                using(var writer = new StreamWriter(file, Encoding.UTF8))
+                using(var writer = new BinaryWriter(file, Encoding.UTF8))
                 {
-                    for (int i = 0; i < posBufferEscritura; i++)
+                    for (int i = 0; i < bufferEscritura.Length; i++)
                     {
-                        if(bufferEscritura[i] == '\n')
-                        {
-                            writer.Write(Environment.NewLine);
-                        }
-                        else if(bufferEscritura[i] == '$')
-                        {
-                            writer.Write(" ");
-                        }
-                        else
+                        //if(bufferEscritura[i] == '\n')
+                        //{
+                        //    writer.Write(Environment.NewLine);
+                        //}
+                        //else if(bufferEscritura[i] == '$')
+                        //{
+                        //    writer.Write(" ");
+                        //}
+                        //else
+                        //{
+                        //    writer.Write(bufferEscritura[i]);
+                        //}
+                        if((char)bufferEscritura[i] != '$')
                         {
                             writer.Write(bufferEscritura[i]);
-                        }
+                        }                        
                     }
                 }
             }

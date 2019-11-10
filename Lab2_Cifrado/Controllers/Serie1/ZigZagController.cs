@@ -56,7 +56,7 @@ namespace Lab2_Cifrado.Controllers.Serie1
                 
                 return RedirectToAction("IndexZigZag");
             }
-            catch
+            catch (Exception e)
             {
                 return View("IndexZigZag");
             }
